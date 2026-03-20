@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PremiacionesBA — Trofeos, Medallas y Plaquetas</title>
+  <meta name="description" content="PremiacionesBA — 25 años fabricando trofeos, medallas y plaquetas personalizadas en Buenos Aires."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:       #b07d2a;
+      --gold-l:     #d4a843;
+      --gold-pale:  #fdf3dc;
+      --gold-line:  rgba(176,125,42,0.18);
+      --bg:         #f8f7f4;
+      --bg2:        #ffffff;
+      --bg3:        #f2f0eb;
+      --ink:        #1a1714;
+      --ink2:       #3d3830;
+      --ink3:       #7a7060;
+      --ink4:       #b0a898;
+      --white:      #ffffff;
+      --wa:         #25d366;
+      --shadow-sm:  0 2px 12px rgba(26,23,20,0.07);
+      --shadow-md:  0 8px 32px rgba(26,23,20,0.11);
+      --shadow-lg:  0 20px 60px rgba(26,23,20,0.15);
+      --r:          10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink2); font-family: 'Outfit', sans-serif; font-weight: 300; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg3); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-l); border-radius: 4px; }
+    img { display: block; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(26,23,20,0.08);
+      box-shadow: var(--shadow-sm);
+    }
+    .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .logo-badge {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-l));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; box-shadow: 0 2px 8px rgba(176,125,42,0.3);
+    }
+    .logo-t { line-height: 1; }
+    .logo-name { display: block; font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+    .logo-sub { display: block; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-top: 1px; }
+    nav { display: flex; align-items: center; gap: 1.6rem; }
+    nav a { color: var(--ink3); text-decoration: none; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.04em; transition: color 0.2s; }
+    nav a:hover { color: var(--gold); }
+    .nav-wa {
+      display: flex; align-items: center; gap: 0.45rem;
+      background: var(--wa); color: #fff !important;
+      padding: 0.48rem 1rem; border-radius: 6px;
+      font-weight: 500 !important; font-size: 0.78rem !important;
+      box-shadow: 0 2px 10px rgba(37,211,102,0.25);
+      transition: opacity 0.2s, transform 0.2s !important;
+    }
+    .nav-wa:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 8rem 2rem 5rem; position: relative; overflow: hidden;
+      background: linear-gradient(160deg, #fff 0%, var(--bg) 55%, var(--gold-pale) 100%);
+    }
+    .hero-blob {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,168,67,0.12) 0%, transparent 70%);
+      top: 10%; left: 50%; transform: translateX(-50%); pointer-events: none;
+    }
+    .hero-dots {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(176,125,42,0.12) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+    }
+    .hero-chip {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--gold-pale); border: 1px solid var(--gold-line);
+      color: var(--gold); padding: 0.35rem 1rem; border-radius: 999px;
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      animation: slideUp 0.6s ease both;
+    }
+    .hero-chip::before { content: '●'; font-size: 0.45rem; opacity: 0.7; }
+    .hero h1 {
+      position: relative; z-index: 1;
+      font-family: 'Fraunces', serif; font-weight: 600;
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+      line-height: 1.07; color: var(--ink); letter-spacing: -0.02em;
+      animation: slideUp 0.6s 0.08s ease both;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
+    .hero-p {
+      position: relative; z-index: 1;
+      margin-top: 1.3rem; max-width: 480px;
+      font-size: 1.05rem; color: var(--ink3); line-height: 1.72;
+      animation: slideUp 0.6s 0.15s ease both;
+    }
+    .hero-pills {
+      position: relative; z-index: 1;
+      display: flex; gap: 0.8rem; margin-top: 2rem;
+      flex-wrap: wrap; justify-content: center;
+      animation: slideUp 0.6s 0.2s ease both;
+    }
+    .pill {
+      background: var(--white); border: 1px solid rgba(26,23,20,0.1);
+      padding: 0.4rem 1rem; border-radius: 999px;
+      font-size: 0.78rem; font-weight: 400; color: var(--ink2);
+      display: flex; align-items: center; gap: 0.4rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .pill span { color: var(--gold); font-weight: 600; }
+    .hero-ctas {
+      position: relative; z-index: 1;
+      display: flex; gap: 0.9rem; margin-top: 2.5rem;
+      flex-wrap: wrap; justify-content: center;
+      animation: slideUp 0.6s 0.26s ease both;
+    }
+    .btn-solid {
+      background: var(--ink); color: var(--white);
+      padding: 0.82rem 2rem; border-radius: 8px;
+      font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.03em; border: none; cursor: pointer;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-solid:hover { background: var(--ink2); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--ink);
+      border: 1.5px solid rgba(26,23,20,0.18);
+      padding: 0.82rem 2rem; border-radius: 8px;
+      font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 400;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* ── SECCIONES ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .sec-eyebrow {
+      display: inline-block; font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .sec-title {
+      font-family: 'Fraunces', serif; font-weight: 600;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      color: var(--ink); line-height: 1.12; letter-spacing: -0.02em;
+    }
+    .sec-title em { font-style: italic; color: var(--gold); font-weight: 300; }
+    .sec-sub { margin-top: 0.55rem; font-size: 0.9rem; color: var(--ink3); line-height: 1.7; max-width: 500px; }
+    .shc { text-align: center; margin-bottom: 2.8rem; }
+    .shc .sec-sub { margin-left: auto; margin-right: auto; }
+
+    /* ── SEARCH & FILTROS ── */
+    .controls { display: flex; flex-direction: column; gap: 1rem; align-items: center; margin-bottom: 2.2rem; }
+    .search-box {
+      position: relative; width: 100%; max-width: 400px;
+    }
+    .search-box input {
+      width: 100%; background: var(--white);
+      border: 1.5px solid rgba(26,23,20,0.12);
+      border-radius: 8px; color: var(--ink);
+      padding: 0.7rem 1rem 0.7rem 2.6rem;
+      font-family: 'Outfit', sans-serif; font-size: 0.85rem;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-box input::placeholder { color: var(--ink4); }
+    .search-box input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,125,42,0.1); }
+    .search-box svg { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--ink4); pointer-events: none; }
+    .fbar { display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; }
+    .fbtn {
+      background: var(--white); border: 1.5px solid rgba(26,23,20,0.1);
+      color: var(--ink3); padding: 0.42rem 1.1rem; border-radius: 999px;
+      font-family: 'Outfit', sans-serif; font-size: 0.74rem; font-weight: 400;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .fbtn:hover { border-color: var(--gold); color: var(--gold); }
+    .fbtn.active { background: var(--ink); border-color: var(--ink); color: var(--white); font-weight: 500; }
+
+    /* ── GRID ── */
+    .pgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.4rem;
+    }
+
+    /* ── CARD ── */
+    .pcard {
+      background: var(--white); border-radius: var(--r);
+      border: 1px solid rgba(26,23,20,0.07);
+      overflow: hidden; display: flex; flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+      cursor: pointer;
+    }
+    .pcard:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .pcard-img {
+      aspect-ratio: 1/1; overflow: hidden;
+      background: var(--bg3); position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pcard-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .pcard:hover .pcard-img img { transform: scale(1.06); }
+    .img-ph {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; color: var(--ink4);
+      background: linear-gradient(135deg, var(--bg3) 0%, #ece8e0 100%);
+    }
+    .img-ph svg { opacity: 0.35; }
+    .img-ph span { font-size: 0.63rem; letter-spacing: 0.08em; }
+
+    .pbadge {
+      position: absolute; top: 0.7rem; left: 0.7rem;
+      background: var(--gold); color: var(--white);
+      font-size: 0.57rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.22rem 0.65rem; border-radius: 999px;
+    }
+    .pcard-zoom-hint {
+      position: absolute; inset: 0; background: rgba(26,23,20,0);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.25s;
+    }
+    .pcard:hover .pcard-zoom-hint { background: rgba(26,23,20,0.12); }
+    .zoom-icon {
+      background: var(--white); border-radius: 50%; width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink); opacity: 0; transform: scale(0.7);
+      transition: opacity 0.25s, transform 0.25s;
+      box-shadow: var(--shadow-md);
+    }
+    .pcard:hover .zoom-icon { opacity: 1; transform: scale(1); }
+
+    .pbody { padding: 1rem 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; }
+    .part { font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink4); margin-bottom: 0.18rem; }
+    .pcat { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.3rem; }
+    .pname { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 600; color: var(--ink); line-height: 1.22; margin-bottom: 0.45rem; letter-spacing: -0.01em; }
+    .pdim { font-size: 0.75rem; font-weight: 500; color: var(--gold); background: var(--gold-pale); padding: 0.15rem 0.55rem; border-radius: 4px; display: inline-block; margin-bottom: 0.45rem; }
+    .pdesc { font-size: 0.78rem; color: var(--ink3); line-height: 1.58; flex: 1; margin-bottom: 0.9rem; }
+    .bwa {
+      display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+      background: var(--wa); color: var(--white);
+      padding: 0.6rem 1rem; border-radius: 6px;
+      font-family: 'Outfit', sans-serif; font-size: 0.75rem; font-weight: 500;
+      text-decoration: none; transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(37,211,102,0.2);
+    }
+    .bwa:hover { opacity: 0.88; transform: translateY(-1px); }
+    .no-res { grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--ink3); font-size: 0.9rem; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(26,23,20,0.55);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white); border-radius: 16px;
+      width: 100%; max-width: 900px; max-height: 92vh;
+      display: flex; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(26,23,20,0.22);
+      transform: scale(0.94) translateY(16px);
+      transition: transform 0.28s ease;
+    }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+    .modal-img-side {
+      width: 55%; flex-shrink: 0;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+      min-height: 440px;
+    }
+    .modal-img-side img {
+      width: 100%; height: 100%; object-fit: contain;
+      padding: 1rem;
+      transition: transform 0.6s ease;
+    }
+    .modal-overlay.open .modal-img-side img { transform: scale(1.02); }
+    .modal-ph {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.8rem; color: var(--ink4);
+      background: linear-gradient(135deg, var(--bg3), #e8e4da);
+      min-height: 300px;
+    }
+    .modal-ph svg { opacity: 0.3; }
+    .modal-ph span { font-size: 0.72rem; letter-spacing: 0.1em; }
+    .modal-body {
+      flex: 1; padding: 2rem 1.8rem;
+      overflow-y: auto; display: flex; flex-direction: column;
+    }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--white); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink2); box-shadow: var(--shadow-sm);
+      transition: background 0.2s; z-index: 10;
+    }
+    .modal-close:hover { background: var(--bg3); }
+    .modal-art { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink4); margin-bottom: 0.2rem; }
+    .modal-cat { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.55rem; }
+    .modal-name { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 600; color: var(--ink); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.7rem; }
+    .modal-dim { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--gold-pale); color: var(--gold); font-size: 0.8rem; font-weight: 500; padding: 0.3rem 0.8rem; border-radius: 6px; margin-bottom: 1rem; }
+    .modal-desc { font-size: 0.88rem; color: var(--ink3); line-height: 1.72; flex: 1; margin-bottom: 1.5rem; }
+    .modal-wa {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      background: var(--wa); color: var(--white);
+      padding: 0.85rem 1.5rem; border-radius: 8px;
+      font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 14px rgba(37,211,102,0.25);
+    }
+    .modal-wa:hover { opacity: 0.88; transform: translateY(-2px); }
+    .modal-note { margin-top: 0.7rem; font-size: 0.72rem; color: var(--ink4); text-align: center; }
+
+    /* ── NOSOTROS ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1060px; margin: 0 auto; }
+    .about-card {
+      background: var(--white); border-radius: 16px; padding: 2.5rem;
+      border: 1px solid rgba(26,23,20,0.07); box-shadow: var(--shadow-md);
+      position: relative; overflow: hidden;
+    }
+    .about-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-l));
+    }
+    .about-quote { font-family: 'Fraunces', serif; font-size: 1.4rem; font-style: italic; font-weight: 300; color: var(--ink); line-height: 1.5; margin-bottom: 1rem; }
+    .about-from { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.8rem; }
+    .stat-box { background: var(--bg3); border-radius: 10px; padding: 1rem 1.2rem; }
+    .stat-n { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 600; color: var(--gold); line-height: 1; }
+    .stat-l { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-top: 3px; }
+    .about-text .sec-sub { max-width: 100%; }
+
+    /* ── CONTACTO ── */
+    .contact-s { background: var(--ink); }
+    .contact-s .sec-eyebrow { color: var(--gold-l); }
+    .contact-s .sec-title { color: var(--white); }
+    .contact-s .sec-title em { color: var(--gold-l); }
+    .contact-s .sec-sub { color: rgba(255,255,255,0.55); }
+    .wa-cta {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: var(--wa); color: var(--white);
+      padding: 1rem 2.5rem; border-radius: 10px;
+      font-family: 'Outfit', sans-serif; font-size: 0.92rem; font-weight: 500;
+      text-decoration: none; margin-top: 2rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .wa-cta:hover { opacity: 0.9; transform: translateY(-3px); }
+
+    /* ── FOOTER ── */
+    footer { background: #0f0d0a; padding: 1.8rem 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .fcopy { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+
+    /* ── WA FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 400;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--wa); display: flex; align-items: center; justify-content: center;
+      text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+
+    /* ── REVEAL ── */
+    .rv { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .rv.on { opacity: 1; transform: none; }
+
+    @keyframes slideUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      header { padding: 0 1.2rem; }
+      nav a:not(.nav-wa) { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      footer { flex-direction: column; text-align: center; }
+      .modal { flex-direction: column; }
+      .modal-img-side { width: 100%; height: 220px; }
+    }
+    @media (max-width: 500px) {
+      .hero-pills { gap: 0.5rem; }
+      .pgrid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#inicio" class="logo">
+    <div class="logo-badge">🏆</div>
+    <div class="logo-t">
+      <span class="logo-name">PremiacionesBA</span>
+      <span class="logo-sub">Trofeos · Medallas · Plaquetas</span>
+    </div>
+  </a>
+  <nav>
+    <a href="#catalogo">Catálogo</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+    <a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="nav-wa">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      WhatsApp
+    </a>
+  </nav>
+</header>
+
+<!-- WA FLOTANTE -->
+<a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="wa-float">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-img-side" id="modalImgSide">
+      <button class="modal-close" onclick="closeModalBtn()" title="Cerrar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-blob"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-chip">Desde 1999 · Buenos Aires</div>
+  <h1>PremiacionesBA<br><em>Trofeos &amp; Distinciones</em></h1>
+  <p class="hero-p">Fabricamos trofeos, medallas y plaquetas personalizadas para eventos deportivos, empresariales y sociales.</p>
+  <div class="hero-pills">
+    <div class="pill"><span>25</span> años de experiencia</div>
+    <div class="pill"><span>178</span> artículos disponibles</div>
+    <div class="pill"><span>100%</span> personalizable</div>
+  </div>
+  <div class="hero-ctas">
+    <a href="#catalogo" class="btn-solid">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Ver catálogo
+    </a>
+    <a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="btn-outline">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      Consultar por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section id="catalogo" style="background:var(--bg)">
+  <div class="container">
+    <div class="shc rv">
+      <span class="sec-eyebrow">178 artículos disponibles</span>
+      <h2 class="sec-title">Catálogo <em>completo</em></h2>
+      <p class="sec-sub">Hacé clic en cualquier producto para ver el detalle y consultar el precio por WhatsApp.</p>
+    </div>
+    <div class="controls rv">
+      <div class="search-box">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar producto o artículo..." oninput="onSearch()">
+      </div>
+      <div class="fbar" id="fbar">
+        <button class="fbtn active" onclick="setF('todos',this)">Todos</button>
+        <button class="fbtn" onclick="setF('trofeos',this)">Trofeos</button>
+        <button class="fbtn" onclick="setF('copas',this)">Copas</button>
+        <button class="fbtn" onclick="setF('futbol',this)">Especial Fútbol</button>
+        <button class="fbtn" onclick="setF('mega',this)">Línea Mega</button>
+      </div>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" style="background:var(--bg2)">
+  <div class="about-grid">
+    <div class="rv">
+      <div class="about-card">
+        <div class="about-quote">"Cada trofeo que fabricamos lleva 25 años de oficio y dedicación."</div>
+        <div class="about-from">— PremiacionesBA, Buenos Aires</div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-n">25+</div><div class="stat-l">Años de experiencia</div></div>
+          <div class="stat-box"><div class="stat-n">178</div><div class="stat-l">Artículos en catálogo</div></div>
+          <div class="stat-box"><div class="stat-n">100%</div><div class="stat-l">Personalizable</div></div>
+          <div class="stat-box"><div class="stat-n">✓</div><div class="stat-l">Grabado incluido</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="rv about-text">
+      <span class="sec-eyebrow">Quiénes somos</span>
+      <h2 class="sec-title">Fabricamos <em>distinciones</em> desde 1999</h2>
+      <p class="sec-sub" style="margin-top:1rem">Somos especialistas en la fabricación y personalización de trofeos, medallas y plaquetas para eventos deportivos, sociales y empresariales en Buenos Aires y todo el país.</p>
+      <p class="sec-sub" style="margin-top:0.7rem">Desde trofeos económicos hasta la <strong style="color:var(--gold)">Línea Mega</strong> de gran volumen, copas especiales y artículos exclusivos de fútbol.</p>
+      <a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="btn-solid" style="margin-top:2rem">Escribinos por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="contact-s" style="text-align:center">
+  <div class="rv">
+    <span class="sec-eyebrow">Estamos para ayudarte</span>
+    <h2 class="sec-title">¿Tenés alguna <em>consulta</em>?</h2>
+    <p class="sec-sub" style="margin:0.6rem auto 0">Escribinos y te respondemos con precios, disponibilidad y opciones de personalización.</p>
+    <a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="wa-cta">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      Consultá ahora por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#inicio" class="logo" style="text-decoration:none">
+    <div class="logo-badge" style="width:28px;height:28px;font-size:0.85rem;border-radius:6px">🏆</div>
+    <div class="logo-t">
+      <span class="logo-name" style="font-size:1rem;color:#fff">PremiacionesBA</span>
+      <span class="logo-sub">Buenos Aires</span>
+    </div>
+  </a>
+  <p class="fcopy">© 2025 PremiacionesBA — Todos los derechos reservados</p>
+</footer>
+
+<script>
+const WA = "5491131502179"; // ← Reemplazá por el número real
+const CATS = { trofeos:"Trofeos", copas:"Copas", futbol:"Especial Fútbol", mega:"Línea Mega" };
+
+const WA_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>`;
+
+const P = [
+  {id:"art1",cat:"trofeos",n:"Alegorías Varios Deportes",d:"Disponible en: Hanball, Voley, Paddle, Atletismo, Natación, Trucho, Bowling, A. Marciales, Motos, Bochas, Arquero, Fútbol, Pesca, Tenis, Ciclismo, Ajedrez, Basquet y más.",dim:"15 cm · Base mármol",b:"Varios deportes", img:"fotos/art1.jpg"},
+  {id:"art2",cat:"trofeos",n:"Alegorías Chicas",d:"Figuras deportivas femeninas y masculinas. Base plástica negra.",dim:"13/15 cm"},
+  {id:"art3",cat:"trofeos",n:"Trofeo Truco",d:"Alegoría temática de truco. Base plástica.",dim:"15 cm"},
+  {id:"art4",cat:"trofeos",n:"Trofeo Fútbol",d:"Figura de futbolista dorado. Base plástica.",dim:"16 cm"},
+  {id:"art5",cat:"trofeos",n:"Trofeo Alada",d:"Figura alada dorada clásica. Base plástica.",dim:"16 cm"},
+  {id:"art6",cat:"trofeos",n:"Alegorías con Antorchas",d:"Varios deportes con antorchas. Base plástica.",dim:"16 cm"},
+  {id:"art7",cat:"trofeos",n:"Trofeo Pelota Triple",d:"Figura con tres pelotas de fútbol. Base plástica.",dim:"16 cm"},
+  {id:"art8",cat:"trofeos",n:"Trofeo Basquet",d:"Figura de básquetbolista. Base plástica.",dim:"16 cm"},
+  {id:"art9",cat:"trofeos",n:"Alegorías Chicas Varios Deportes",d:"Miniaturas deportivas. Base de mármol.",dim:"11 cm"},
+  {id:"art10",cat:"trofeos",n:"Fútbol Femenino",d:"Figura futbolista femenina. Base mármol.",dim:"14 cm"},
+  {id:"art11",cat:"trofeos",n:"Fútbol Masculino",d:"Figura futbolista masculino. Base mármol.",dim:"14 cm"},
+  {id:"art12",cat:"trofeos",n:"Pelota Triple",d:"Trío de pelotas estilizado. Base mármol.",dim:"14 cm"},
+  {id:"art13",cat:"trofeos",n:"Alada con Centro",d:"Figura alada con espacio para medallón personalizado.",dim:"14 cm"},
+  {id:"art14",cat:"trofeos",n:"Alada",d:"Figura alada clásica. Base mármol.",dim:"14 cm"},
+  {id:"art15",cat:"trofeos",n:"Chilena",d:"Futbolista en posición de chilena. Base mármol.",dim:"14 cm"},
+  {id:"art16",cat:"trofeos",n:"Trofeo Pesca",d:"Figura de pez para torneos. Base mármol.",dim:"9.5 cm"},
+  {id:"art17",cat:"trofeos",n:"Trofeo Karting",d:"Figura de kart de competición. Base mármol.",dim:"13 cm"},
+  {id:"art18",cat:"trofeos",n:"Trofeo Ciclismo",d:"Figura de ciclista en acción. Dos tamaños.",dim:"Grande 14 / Chico 12 cm"},
+  {id:"art19",cat:"trofeos",n:"Trofeo Basquet Grande",d:"Basketbolista premiado. Base mármol.",dim:"15 cm"},
+  {id:"art20",cat:"trofeos",n:"Trofeo Fútbol Grande",d:"Figura futbolista grande. Base mármol.",dim:"16 cm"},
+  {id:"art21",cat:"trofeos",n:"Trofeo Automovilismo",d:"Figura de auto de carrera. Base mármol.",dim:"14 cm"},
+  {id:"art22",cat:"trofeos",n:"Fútbol Femenino Doble",d:"Par de figuras femeninas en color. Base mármol.",dim:"16 cm",b:"Novedad"},
+  {id:"art23",cat:"trofeos",n:"Fútbol Masculino Doble",d:"Par de figuras masculinas. Dos tamaños.",dim:"Grande 17 / Chico 10 cm"},
+  {id:"art24",cat:"trofeos",n:"Alada con Centro Grande",d:"Figura alada con medallón centralizable.",dim:"17 cm"},
+  {id:"art25",cat:"trofeos",n:"Fútbol Laurel con Centro",d:"Futbolista con laureles y centro para logo.",dim:"17 cm"},
+  {id:"art26",cat:"trofeos",n:"Karate Laurel Grande",d:"Figura de karateca con laureles. Base mármol.",dim:"17 cm"},
+  {id:"art27",cat:"trofeos",n:"Trofeo Hockey",d:"Figura con palos de hockey. Base mármol.",dim:"15 cm"},
+  {id:"art28",cat:"trofeos",n:"Trofeo Truco Grande",d:"Figura temática de truco con laurel.",dim:"17 cm"},
+  {id:"art29",cat:"trofeos",n:"Trofeo Ajedrez",d:"Pieza de ajedrez con laurel. Base mármol.",dim:"15 cm"},
+  {id:"art30",cat:"trofeos",n:"Trofeo Patín Fem/Masc",d:"Figura de patinador artístico. Base mármol.",dim:"14 cm"},
+  {id:"art31",cat:"trofeos",n:"Trofeo Karate Grande",d:"Karateca de gran tamaño. Base mármol.",dim:"16 cm"},
+  {id:"art32",cat:"trofeos",n:"Alegorías con Corona",d:"Alegorías coronadas para varios deportes.",dim:"17 cm",b:"Varios deportes"},
+  {id:"art33",cat:"trofeos",n:"Alegorías Estampadas Chicas",d:"Figuras estampadas con puestos (1°, 2°, 3°) y logos personalizables.",dim:"11/12 cm",b:"Con puestos"},
+  {id:"art34a",cat:"trofeos",n:"Alegorías Estampadas Medianas A",d:"Figuras estampadas bronce. Base plástica.",dim:"14 cm"},
+  {id:"art34b",cat:"trofeos",n:"Alegorías Estampadas Medianas B",d:"Figuras estampadas con puestos.",dim:"17 cm"},
+  {id:"art35",cat:"trofeos",n:"Alegorías Estampadas Grandes",d:"Figuras estampadas grandes, doradas y bronceadas.",dim:"16/18 cm"},
+  {id:"art36",cat:"trofeos",n:"Trofeo 1 Columna Económico Chico",d:"Columna decorativa en varios colores. Alegorías chicas. Oro/Plata.",dim:"20 / 23 / 26 cm"},
+  {id:"art37",cat:"trofeos",n:"Trofeo 1 Columna Económico Grande",d:"Columna multicolor con alegorías grandes.",dim:"25 / 30 / 35 cm"},
+  {id:"art38",cat:"trofeos",n:"Trofeo 1 Columna Standard",d:"Columna varios colores. Alegorías chicas y grandes.",dim:"Chicas 18-24 cm · Grandes 22-30 cm"},
+  {id:"art39",cat:"trofeos",n:"Trofeo 1 Columna Alegorías Especiales",d:"Columna con figuras de colores especiales.",dim:"30 / 35 / 40 cm",b:"Especial"},
+  {id:"art40",cat:"trofeos",n:"Trofeo 1 Columna Económico Estampado",d:"Columna económica con alegorías estampadas.",dim:"Chicas 17-23 · Medianas 23-29 · Grandes 29-35 cm"},
+  {id:"art41",cat:"trofeos",n:"Trofeo 1 Columna Standard Estampado",d:"Columna standard con estampadas. Varios colores.",dim:"Chicas 17-23 · Medianas 23-29 · Grandes 27-33 cm"},
+  {id:"art42",cat:"trofeos",n:"Trofeo 1 Columna Estampado Grande",d:"Columna de color con alegoría estampada grande.",dim:"30 / 33 / 36 cm"},
+  {id:"art43",cat:"trofeos",n:"Trofeo Columna Dorado",d:"Columna estampada dorada con figura deportiva.",dim:"19 a 22 cm"},
+  {id:"art44",cat:"trofeos",n:"Trofeo Columna Arco Iris",d:"Columna arco iris multicolor.",dim:"19 a 22 cm",b:"Color"},
+  {id:"art45",cat:"trofeos",n:"Trofeo Columna Greco",d:"Columna estilo greco-romano con figura grande.",dim:"25 cm"},
+  {id:"art46",cat:"trofeos",n:"Trofeo con Puesto",d:"Columna con plaqueta de puesto 1°/2°/3°.",dim:"27/29 cm"},
+  {id:"art47",cat:"trofeos",n:"Trofeo Columna Mediana",d:"Columna dorada con alegoría mediana.",dim:"27/29 cm"},
+  {id:"art48",cat:"trofeos",n:"Trofeo Columna Grande",d:"Columna con figura grande. Varios colores.",dim:"30/32 cm"},
+  {id:"art49",cat:"copas",n:"Copa con Alegoría Chica",d:"Copa clásica dorada con figura encima.",dim:"23 / 26 cm"},
+  {id:"art50",cat:"copas",n:"Copa con Alegoría Mediana",d:"Copa dorada con figura deportiva.",dim:"27 / 30 cm"},
+  {id:"art51",cat:"copas",n:"Copa con Alegoría Grande",d:"Copa de gran volumen con alegoría.",dim:"23 / 32 / 36 cm"},
+  {id:"art52",cat:"copas",n:"Copa Premium con Tapa",d:"Copa premium con alegoría y tapa decorativa.",dim:"26 / 35 / 41 cm",b:"Premium"},
+  {id:"art53",cat:"copas",n:"Copa Pequeña Varios Colores",d:"Copa compacta, varios colores.",dim:"20 cm"},
+  {id:"art54",cat:"copas",n:"Copa Mediana Varios Colores",d:"Copa mediana con figura, varios colores.",dim:"28 cm"},
+  {id:"art55",cat:"copas",n:"Copa Grande Varios Colores",d:"Copa grande con figura, varios colores.",dim:"35 cm"},
+  {id:"art56",cat:"copas",n:"Copa Especial XL",d:"Copa XL con figura especial. Varios colores.",dim:"45 cm",b:"Especial"},
+  {id:"art57",cat:"copas",n:"Copa 1010/4",d:"Modelo 1010/4 con columna y figura. Varios colores.",dim:"30 / 33 / 37 cm"},
+  {id:"art58",cat:"copas",n:"Copa 1010/3",d:"Modelo 1010/3 con columna y figura. Varios colores.",dim:"36 / 40 / 44 cm"},
+  {id:"art59",cat:"copas",n:"Copa Clásica 22cm Oro/Plata",d:"Copa clásica pequeña.",dim:"22 cm"},
+  {id:"art60",cat:"copas",n:"Copa Clásica 30cm Oro/Plata",d:"Copa clásica mediana con figura.",dim:"30 cm"},
+  {id:"art61",cat:"copas",n:"Copa Clásica 35cm Oro/Plata",d:"Copa clásica grande con figura.",dim:"35 cm"},
+  {id:"art62",cat:"copas",n:"Copa Especial con Figura",d:"Copa dorada con figura estampada.",dim:"27 cm"},
+  {id:"art63",cat:"copas",n:"Copa Tipo Campeonato",d:"Copa estilo campeonato con figura.",dim:"35 cm"},
+  {id:"art64",cat:"copas",n:"Copa Trofeo Premium 40cm",d:"Copa con tapa y asas. Acabado premium.",dim:"40 cm",b:"Premium"},
+  {id:"art65",cat:"copas",n:"Copa Italia Chica 30cm",d:"Modelo Copa Italia. Oro/Plata. Accesorios varios colores.",dim:"30 cm"},
+  {id:"art66",cat:"copas",n:"Copa Italia 35-45cm",d:"Copa Italia en tres tamaños. Oro/Plata.",dim:"35 / 40 / 45 cm"},
+  {id:"art67",cat:"copas",n:"Copa Italia Mediana 45-53cm",d:"Copa Italia mediana con figura especial.",dim:"45 / 48 / 53 cm"},
+  {id:"art68",cat:"copas",n:"Copa Italia 50cm",d:"Copón estilo italiano. Oro y plata.",dim:"50 cm"},
+  {id:"art69",cat:"copas",n:"Copa Italia 55cm",d:"Copa Italia grande. Oro y plata.",dim:"55 cm"},
+  {id:"art70",cat:"copas",n:"Copa 23cm con Figura",d:"Copa pequeña dorada con figura.",dim:"23 cm"},
+  {id:"art71",cat:"copas",n:"Copa 32cm con Figura",d:"Copa con figura de deporte.",dim:"32 cm"},
+  {id:"art72",cat:"copas",n:"Copa Mediana Dorada 35cm",d:"Copa mediana labrada, dorada.",dim:"35 cm"},
+  {id:"art73",cat:"copas",n:"Copa Grande 43cm",d:"Copa grande dorada con figura.",dim:"43 cm"},
+  {id:"art74",cat:"copas",n:"Copa con Tapa 46cm",d:"Copa grande premium con tapa.",dim:"46 cm",b:"Premium"},
+  {id:"art75",cat:"copas",n:"Copa Labrada 20cm",d:"Copa labrada compacta.",dim:"20 cm"},
+  {id:"art76",cat:"copas",n:"Copa Labrada 23cm",d:"Copa labrada mediana.",dim:"23 cm"},
+  {id:"art77",cat:"copas",n:"Copa Labrada 26cm",d:"Copa labrada grande.",dim:"26 cm"},
+  {id:"art78",cat:"copas",n:"Copa Labrada 30cm",d:"Copa labrada extra grande.",dim:"30 cm"},
+  {id:"art79",cat:"copas",n:"Copa Fútbol 24/27cm",d:"Copa dorada con figura fútbol.",dim:"24/27 cm"},
+  {id:"art80",cat:"copas",n:"Copa Pelota y Alegoría",d:"Copa con pelota dorada y figura. Varios colores.",dim:"24 / 27 / 30 cm"},
+  {id:"art81",cat:"copas",n:"Copa con Cúpula 25-31cm",d:"Copa especial con cúpula decorativa.",dim:"25 / 28 / 31 cm"},
+  {id:"art82",cat:"copas",n:"Copa Acrílico con Figura",d:"Copa de acrílico transparente con figura dorada.",dim:"25 cm",b:"Novedad"},
+  {id:"art83",cat:"copas",n:"Trofeo 2 Columnas 30-40cm",d:"Trofeo de dos columnas con figura.",dim:"30 / 35 / 40 cm"},
+  {id:"art84",cat:"copas",n:"Trofeo 2 Columnas Pelota",d:"Dos columnas con pelota y figura.",dim:"30 / 35 / 40 cm"},
+  {id:"art85",cat:"copas",n:"Trofeo 2 Columnas Copa Verde",d:"Dos columnas verdes con copa.",dim:"33 / 37 / 42 cm"},
+  {id:"art86",cat:"copas",n:"Trofeo 2 Columnas Copa Dorada",d:"Dos columnas con copa dorada.",dim:"35 / 40 / 45 cm"},
+  {id:"art87",cat:"copas",n:"Trofeo 2 Columnas Clásico",d:"Trofeo clásico dos columnas con figuras laterales.",dim:"35 / 40 / 45 cm"},
+  {id:"art88",cat:"copas",n:"Trofeo 2 Columnas Grande 40-50cm",d:"Trofeo grande dos columnas con copa.",dim:"40 / 45 / 50 cm"},
+  {id:"art89",cat:"copas",n:"Trofeo 3 Columnas Estampado 50-60cm",d:"Tres columnas con copa y figuras estampadas.",dim:"50 / 55 / 60 cm"},
+  {id:"art90",cat:"copas",n:"Trofeo 3 Columnas con Copa 50-60cm",d:"Tres columnas con copa premium.",dim:"50 / 55 / 60 cm"},
+  {id:"art91",cat:"copas",n:"Trofeo 3 Columnas Verde 50-60cm",d:"Tres columnas verdes con copa.",dim:"50 / 55 / 60 cm"},
+  {id:"art92",cat:"copas",n:"Copa 53cm con Tapa",d:"Copa de gran tamaño con figura y tapa.",dim:"53 cm"},
+  {id:"art93",cat:"copas",n:"Trofeo 2 Columnas Negro 35-45cm",d:"Dos columnas negras con copa labrada.",dim:"35 / 40 / 45 cm"},
+  {id:"art94",cat:"copas",n:"Trofeo 3 Columnas Plateado 60-70cm",d:"Tres columnas plateadas con copón.",dim:"60 / 65 / 70 cm"},
+  {id:"art95",cat:"copas",n:"Trofeo 3 Columnas 45-55cm",d:"Tres columnas en color con figuras laterales.",dim:"45 / 50 / 55 cm"},
+  {id:"art96",cat:"copas",n:"Super Copón 60cm",d:"Copón de gran presencia con figura.",dim:"60 cm",b:"Super"},
+  {id:"art97",cat:"copas",n:"Trofeo 3 Columnas Azul 50-60cm",d:"Tres columnas azules con copa.",dim:"50 / 55 / 60 cm"},
+  {id:"art98",cat:"copas",n:"Trofeo 3 Columnas 70-90cm",d:"Gran volumen, columnas y pelota.",dim:"70 / 80 / 90 cm"},
+  {id:"art99",cat:"copas",n:"Trofeo 3 Columnas Violeta 70-90cm",d:"Tres columnas violetas con copón premium.",dim:"70 / 80 / 90 cm"},
+  {id:"art100",cat:"copas",n:"Trofeo 3 Columnas XL 85-105cm",d:"Trofeo XL tres columnas con copa de color.",dim:"85 / 95 / 105 cm",b:"XL"},
+  {id:"art101",cat:"copas",n:"Trofeo 3 Columnas Verde 70-90cm",d:"Tres columnas verdes con figura y copa.",dim:"70 / 80 / 90 cm"},
+  {id:"art102",cat:"copas",n:"Trofeo 3 Columnas Bronce 60-70cm",d:"Tres columnas bronce con copa labrada.",dim:"60 / 65 / 70 cm"},
+  {id:"art103",cat:"copas",n:"Trofeo 3 Columnas Negro 70-90cm",d:"Tres columnas negras con copa plateada.",dim:"70 / 80 / 90 cm"},
+  {id:"art104",cat:"mega",n:"Línea Mega — Modelo A",d:"Trofeos de gran volumen para torneos especiales. Columnas doradas y plateadas.",dim:"100 / 115 / 130 cm",b:"Línea Mega"},
+  {id:"art105",cat:"mega",n:"Línea Mega — Modelo B",d:"Mega trofeo con copa grande y columnas. Gran impacto visual.",dim:"120 / 135 / 150 cm",b:"Línea Mega"},
+  {id:"art106",cat:"mega",n:"Línea Mega — Modelo C",d:"El más grande: cuatro columnas doradas con copa y figura alada.",dim:"130 / 150 / 170 cm",b:"Línea Mega"},
+  {id:"art107",cat:"copas",n:"Copa Egipcia",d:"Diseño ánfora egipcia. Dorada o plateada.",dim:"Chica 36 / Med 45 / Grande 55 cm",b:"Novedad"},
+  {id:"art108",cat:"copas",n:'Copa "Libertadores"',d:"Réplica estilo Copa Libertadores. Plateada.",dim:"Sin alegoría 35 / Con alegoría 45 cm",b:"Novedad"},
+  {id:"art109",cat:"copas",n:"Copa Ibiza Chica",d:"Copa Ibiza en plata/negro u oro/negro.",dim:"Chica 35 / Grande 42 cm",b:"Novedad"},
+  {id:"art110",cat:"copas",n:"Copa Ibiza Oro/Plata 50-60cm",d:"Copa Ibiza con figura. Acabado oro y plata.",dim:"Chica 50 / Grande 60 cm"},
+  {id:"art111",cat:"copas",n:"Copa Ibiza Oro/Negro 50-60cm",d:"Copa Ibiza en oro y negro con figura.",dim:"Chica 50 / Grande 60 cm"},
+  {id:"art112",cat:"copas",n:"Copa Ibiza con Alada",d:"Copa Ibiza con figura alada premium.",dim:"Chica 50 / Grande 60 cm",b:"Premium"},
+  {id:"art113",cat:"futbol",n:"Trofeo Pelota Grande con Figura",d:"Gran pelota dorada con figura. Impactante presencia.",dim:"40 cm",b:"Especial"},
+  {id:"art114",cat:"futbol",n:"Pelota de Fútbol 22cm",d:"Trofeo pelota pequeño.",dim:"22 cm"},
+  {id:"art115",cat:"futbol",n:"Pelota con Figura 23cm",d:"Pelota con figura encima.",dim:"23 cm"},
+  {id:"art116",cat:"futbol",n:"Balón de Oro",d:"Trofeo estilo Balón de Oro con figura y escudo personalizable.",dim:"36 cm",b:"Balón de Oro"},
+  {id:"art117",cat:"futbol",n:"Botín Estampado Plano 30cm",d:"Botín estampado en plano sobre columna labrada.",dim:"30 cm"},
+  {id:"art118",cat:"futbol",n:"Guante Estampado Plano 18cm",d:"Guante de arquero estampado en plano.",dim:"18 cm"},
+  {id:"art119",cat:"futbol",n:"Botín Tridimensional con Columna",d:"Botín 3D dorado sobre columna.",dim:"25 cm"},
+  {id:"art120",cat:"futbol",n:"Botín de Oro / Plata / Fucsia",d:"Botín tridimensional en varios colores. Premio máximo goleador.",dim:"20 x 20 cm",b:"Máximo Goleador"},
+  {id:"art121",cat:"futbol",n:"Guante de Arquero/a 27cm",d:"Guante de arquero plateado. Premio especial.",dim:"27 cm"},
+  {id:"art122",cat:"futbol",n:"Guante Tridimensional 33cm",d:"Guante de fútbol 3D dorado.",dim:"33 cm"},
+  {id:"art123",cat:"futbol",n:"Guante o Botín Grande 40cm",d:"Guante o botín grande 3D sobre columna.",dim:"40 cm"},
+  {id:"art124",cat:"futbol",n:"Guante con Balón 40cm",d:"Guante sosteniendo balón. Premio especial arqueros.",dim:"40 cm"},
+  {id:"art125",cat:"copas",n:"Copa 1 Pequeña 22cm",d:"Copa pequeña con alegoría estampada.",dim:"22 cm"},
+  {id:"art126",cat:"copas",n:"Copa con Alegorías Estampadas",d:"Copa con estampadas chicas. Tres tamaños.",dim:"25 / 28 / 31 cm"},
+  {id:"art127",cat:"copas",n:"Copa 2 Columna Verde 37cm",d:"Copa negra con columna verde y figura.",dim:"37 cm"},
+  {id:"art128",cat:"copas",n:"Copa 20 con Alegorías 45cm",d:"Copa 20 en oro, plata o negro.",dim:"45 cm"},
+  {id:"art129",cat:"futbol",n:"Pelota Americana Chica 25cm",d:"Copa con pelota americana negra.",dim:"25 cm"},
+  {id:"art130",cat:"futbol",n:"Pelota Americana Copa 25cm",d:"Copa con pelota americana plateada.",dim:"25 cm"},
+  {id:"art131",cat:"futbol",n:"Pelota Americana Fucsia/Plata 40cm",d:"Pelota americana fucsia o plata sobre base.",dim:"40 cm",b:"Novedad"},
+  {id:"art132",cat:"futbol",n:"Pelota Americana Copa Grande 48cm",d:"Copa grande con pelota americana negra.",dim:"48 cm"},
+  {id:"art133",cat:"copas",n:"Copa con Alegorías 54cm",d:"Copa plateada con alegorías medianas.",dim:"54 cm"},
+  {id:"art134",cat:"futbol",n:"Pelota con Estrellas 53cm",d:"Pelota plateada con estrellas y alegorías.",dim:"53 cm"},
+  {id:"art135",cat:"futbol",n:"Pelota con Estrellas Columna París 57cm",d:"Pelota estrellas sobre columna París.",dim:"57 cm"},
+  {id:"art136",cat:"futbol",n:"Pelota Bicolor Grande 28cm",d:"Pelota bicolor blanca y negra.",dim:"28 cm"},
+  {id:"art137",cat:"futbol",n:"Pelota Bicolor Chica 21cm",d:"Pelota bicolor pequeña.",dim:"21 cm"},
+  {id:"art138",cat:"futbol",n:"Pelota Bicolor con Fortín 52cm",d:"Pelota bicolor con fortín. Premio especial.",dim:"52 cm",b:"Especial"},
+  {id:"art139",cat:"copas",n:"Copa del Mundo 33cm",d:"Réplica estilo Copa del Mundo dorada.",dim:"33 cm",b:"Especial"},
+  {id:"art140",cat:"copas",n:"Copa Fénix Oro/Negro 55-60cm",d:"Copa Fénix con cuerpo negro y figura grande.",dim:"55/60 cm",b:"Novedad"},
+  {id:"art141",cat:"copas",n:"Copón Cuerpo Negro 60cm",d:"Copón negro con columnas doradas.",dim:"60 cm"},
+  {id:"art142",cat:"copas",n:"Copa 9 Estampado 44-47cm",d:"Copa 9 con alegorías estampadas grandes.",dim:"44/47 cm"},
+  {id:"art143",cat:"copas",n:"Copa 9 con Figura 44-47cm",d:"Copa 9 con figura deportiva.",dim:"44/47 cm"},
+  {id:"art144",cat:"copas",n:"Copa Columna Greco 37cm",d:"Copa sobre columna greco con alegoría estampada.",dim:"37 cm"},
+  {id:"art145",cat:"copas",n:"Copa Romana",d:"Copa estilo romano en dos tamaños.",dim:"Chica 30 / Grande 40 cm"},
+  {id:"art146",cat:"copas",n:"Copa América Estampada 25cm",d:"Copa estampada estilo Copa América.",dim:"25 cm"},
+  {id:"art147",cat:"copas",n:"Copa América Estampada 18cm",d:"Copa América estampada mediana.",dim:"18 cm"},
+  {id:"art148",cat:"copas",n:"Copa Cancún 34cm",d:"Copa estilo Cancún con figura alada dorada.",dim:"34 cm",b:"Novedad"},
+  {id:"art149",cat:"copas",n:"Copa 1 Estampada 33cm",d:"Copa 1 con alegoría estampada.",dim:"33 cm"},
+  {id:"art150",cat:"copas",n:"Copa 1 con Figura 33cm",d:"Copa 1 con figura deportiva.",dim:"33 cm"},
+  {id:"art151",cat:"copas",n:"Copa Clásica Chica 22-30cm",d:"Copa clásica con alegorías chicas.",dim:"22 / 26 / 30 cm"},
+  {id:"art152",cat:"copas",n:"Copa Orejona 18-27cm",d:"Copa orejona plateada. Tres tamaños.",dim:"18 / 22 / 27 cm"},
+  {id:"art153",cat:"copas",n:"Copa Clásica Grande 30-45cm",d:"Copa clásica grande con alegorías.",dim:"30 / 38 / 45 cm"},
+  {id:"art154",cat:"copas",n:"Copa Fargo 30-40cm",d:"Copa Fargo con columna labrada.",dim:"30 / 35 / 40 cm"},
+  {id:"art155",cat:"copas",n:"Copa Orejona con Tapa 34-53cm",d:"Copa orejona con tapa y alegorías.",dim:"34 / 40 / 53 cm"},
+  {id:"art156",cat:"copas",n:"Copa Italia con Asa 21-24cm",d:"Copa Italia con asas doradas.",dim:"Chica 21 / Grande 24 cm"},
+  {id:"art157",cat:"futbol",n:"Botín o Guante con Balón Estampado",d:"Botín o guante estampado con balón. Varios tamaños.",dim:"25 / 30 / 34 / 37 cm"},
+  {id:"art158",cat:"copas",n:"Copa Italia con Asa y Tapa 38-43cm",d:"Copa Italia con asas y tapa dorada.",dim:"Chica 38 / Grande 43 cm"},
+  {id:"art159",cat:"futbol",n:"Fútbol con Pelota A 30cm",d:"Futbolista con pelota integrada. Base negra.",dim:"30 cm"},
+  {id:"art160",cat:"futbol",n:"Fútbol con Pelota B 30cm",d:"Futbolista con pelota. Versión B.",dim:"30 cm"},
+  {id:"art161",cat:"futbol",n:"Fútbol con Pelota C 30cm",d:"Figura con pelota y laurel.",dim:"30 cm"},
+  {id:"art162",cat:"copas",n:"Alegorías Estampadas con Pie Color",d:"Estampadas chicas y grandes con pie de color.",dim:"Chicas 23/25 · Grandes 27/30 cm"},
+  {id:"art163",cat:"copas",n:"Copa Satinada Pedestal Negro 32cm",d:"Copa satinada con pedestal negro y alegorías grandes.",dim:"32 cm"},
+  {id:"art164",cat:"copas",n:"Copa Satinada Pedestal Color 40cm",d:"Copa satinada con pedestal en varios colores.",dim:"40 cm"},
+  {id:"art165",cat:"futbol",n:"Pelota con Base y Alegorías 30cm",d:"Pelota sobre base con alegorías medianas.",dim:"30 cm"},
+  {id:"art166",cat:"copas",n:"Copa Combinada Pie Labrado 35-50cm",d:"Copa combinada con pie labrado. Varios colores.",dim:"35 / 40 / 50 cm"},
+  {id:"art167",cat:"copas",n:"Copa Combinada Pie Liso 37-43cm",d:"Copa combinada pie liso y alegorías grandes.",dim:"37 / 43 cm"},
+  {id:"art168",cat:"copas",n:"Copa 10 Lisa Pie Labrado 32cm",d:"Copa 10 lisa con pie labrado oro/plata.",dim:"32 cm"},
+  {id:"art169",cat:"copas",n:"Copa Combinada Negro Estampadas Chicas 38cm",d:"Copa negro con estampadas chicas.",dim:"38 cm"},
+  {id:"art170",cat:"copas",n:"Copa Combinada Negro Estampadas Grandes 45cm",d:"Copa negro con estampadas grandes.",dim:"45 cm"},
+  {id:"art171",cat:"copas",n:"Copón Labrado con Alada 55cm",d:"Copón labrado con figura alada. Alta presencia.",dim:"55 cm",b:"Premium"},
+  {id:"art172",cat:"copas",n:"Copa con Triunfo 28-43cm",d:"Copa especial con base tipo triunfo.",dim:"28 / 33 / 38 / 43 cm"},
+  {id:"art173",cat:"futbol",n:"Pelota Estampada 50-57cm",d:"Pelota estampada sobre columna estrellada.",dim:"50 / 57 cm"},
+  {id:"art174",cat:"futbol",n:"Pelota con Base 2 Columnas 55cm",d:"Pelota dorada con dos columnas.",dim:"55 cm"},
+  {id:"art175",cat:"copas",n:"Copa Combinada 2 Columnas 50cm",d:"Copa combinada con dos columnas y alegorías grandes.",dim:"50 cm"},
+  {id:"art176",cat:"copas",n:"Copa Combinada Negro 3 Columnas 60cm",d:"Copa negro, tres columnas, estampadas.",dim:"60 cm"},
+  {id:"art177",cat:"copas",n:"Copón Labrado 2 Columnas 70cm",d:"Copón labrado con dos columnas doradas.",dim:"70 cm"},
+  {id:"art178",cat:"copas",n:"Copón Labrado 3 Columnas 70cm",d:"El copón más imponente: tres columnas, cuerpo labrado.",dim:"70 cm",b:"Top"},
+];
+
+let filt = "todos", busq = "";
+
+function waLink(p) {
+  return `https://wa.me/${WA}?text=${encodeURIComponent(`Hola PremiacionesBA! 👋 Quisiera consultar el precio del *${p.n}* (${p.id.toUpperCase()}) — ${p.dim||''}. Gracias!`)}`;
+}
+
+function phHTML(size=44) {
+  return `<div class="img-ph"><svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Imagen del producto</span></div>`;
+}
+
+function render() {
+  const g = document.getElementById("pgrid");
+  const t = busq.toLowerCase();
+  const list = P.filter(p => (filt==="todos"||p.cat===filt) && (!t||p.n.toLowerCase().includes(t)||p.id.includes(t)||p.d.toLowerCase().includes(t)));
+  if (!list.length) { g.innerHTML=`<div class="no-res">No se encontraron productos.</div>`; return; }
+  g.innerHTML = list.map((p,i) => `
+    <div class="pcard rv" style="transition-delay:${Math.min(i%12,11)*0.032}s" onclick="openModal('${p.id}')">
+      <div class="pcard-img">
+        ${p.img?`<img src="${p.img}" alt="${p.n}" loading="lazy">`:phHTML()}
+        ${p.b?`<span class="pbadge">${p.b}</span>`:""}
+        <div class="pcard-zoom-hint">
+          <div class="zoom-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+        </div>
+      </div>
+      <div class="pbody">
+        <div class="part">${p.id.toUpperCase()}</div>
+        <div class="pcat">${CATS[p.cat]||p.cat}</div>
+        <div class="pname">${p.n}</div>
+        ${p.dim?`<span class="pdim">📐 ${p.dim}</span>`:""}
+        <div class="pdesc">${p.d}</div>
+        <a href="${waLink(p)}" target="_blank" class="bwa" onclick="event.stopPropagation()">${WA_SVG} Consultar precio</a>
+      </div>
+    </div>
+  `).join("");
+  obs();
+}
+
+function setF(c,btn) {
+  filt=c;
+  document.querySelectorAll(".fbtn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+}
+
+function onSearch() { busq=document.getElementById("searchInput").value; render(); }
+
+// MODAL
+function openModal(id) {
+  const p = P.find(x=>x.id===id);
+  if (!p) return;
+  const side = document.getElementById("modalImgSide");
+  const body = document.getElementById("modalBody");
+  // imagen
+  const imgHTML = p.img
+    ? `<img src="${p.img}" alt="${p.n}">`
+    : `<div class="modal-ph"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Imagen del producto</span></div>`;
+  // mantener botón close
+  side.innerHTML = `<button class="modal-close" onclick="closeModalBtn()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg></button>${imgHTML}`;
+  body.innerHTML = `
+    <div class="modal-art">${p.id.toUpperCase()}</div>
+    <div class="modal-cat">${CATS[p.cat]||p.cat}</div>
+    <div class="modal-name">${p.n}</div>
+    ${p.dim?`<span class="modal-dim">📐 ${p.dim}</span>`:""}
+    <p class="modal-desc">${p.d}</p>
+    <a href="${waLink(p)}" target="_blank" class="modal-wa">${WA_SVG} Consultar precio por WhatsApp</a>
+    <p class="modal-note">Te vamos a responder con el precio y opciones de personalización.</p>
+  `;
+  document.getElementById("modal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal(e) { if (e.target===document.getElementById("modal")) closeModalBtn(); }
+function closeModalBtn() {
+  document.getElementById("modal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.addEventListener("keydown", e => { if (e.key==="Escape") closeModalBtn(); });
+
+// REVEAL
+function obs() {
+  const io = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target);}}),{threshold:0.08});
+  document.querySelectorAll(".rv:not(.on)").forEach(el=>io.observe(el));
+}
+
+render();
+obs();
+</script>
+</body>
+</html>
