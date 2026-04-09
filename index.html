@@ -6,7 +6,8 @@
   <title>PremiacionesBA — Trofeos, Medallas y Plaquetas</title>
   <meta name="description" content="PremiacionesBA — 25 años fabricando trofeos, medallas y plaquetas personalizadas en Buenos Aires."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --gold:       #b07d2a;
@@ -53,7 +54,7 @@
       font-size: 1.1rem; box-shadow: 0 2px 8px rgba(176,125,42,0.3);
     }
     .logo-t { line-height: 1; }
-    .logo-name { display: block; font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+    .logo-name { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.35rem; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
     .logo-sub { display: block; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink3); margin-top: 1px; }
     nav { display: flex; align-items: center; gap: 1.6rem; }
     nav a { color: var(--ink3); text-decoration: none; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.04em; transition: color 0.2s; }
@@ -98,9 +99,9 @@
     .hero-chip::before { content: '●'; font-size: 0.45rem; opacity: 0.7; }
     .hero h1 {
       position: relative; z-index: 1;
-      font-family: 'Fraunces', serif; font-weight: 600;
-      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
-      line-height: 1.07; color: var(--ink); letter-spacing: -0.02em;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600;
+      font-size: clamp(3rem, 7.5vw, 6rem);
+      line-height: 1.05; color: var(--ink); letter-spacing: -0.01em;
       animation: slideUp 0.6s 0.08s ease both;
     }
     .hero h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
@@ -159,9 +160,9 @@
       margin-bottom: 0.6rem;
     }
     .sec-title {
-      font-family: 'Fraunces', serif; font-weight: 600;
-      font-size: clamp(1.7rem, 3vw, 2.5rem);
-      color: var(--ink); line-height: 1.12; letter-spacing: -0.02em;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--ink); line-height: 1.1; letter-spacing: -0.01em;
     }
     .sec-title em { font-style: italic; color: var(--gold); font-weight: 300; }
     .sec-sub { margin-top: 0.55rem; font-size: 0.9rem; color: var(--ink3); line-height: 1.7; max-width: 500px; }
@@ -169,10 +170,9 @@
     .shc .sec-sub { margin-left: auto; margin-right: auto; }
 
     /* ── SEARCH & FILTROS ── */
-    .controls { display: flex; flex-direction: column; gap: 1rem; align-items: center; margin-bottom: 2.2rem; }
-    .search-box {
-      position: relative; width: 100%; max-width: 400px;
-    }
+    .controls { display: flex; flex-direction: column; gap: 0.8rem; align-items: center; margin-bottom: 1.4rem; }
+    .controls-row1 { display: flex; gap: 0.7rem; width: 100%; max-width: 780px; align-items: center; }
+    .search-box { position: relative; flex: 1; }
     .search-box input {
       width: 100%; background: var(--white);
       border: 1.5px solid rgba(26,23,20,0.12);
@@ -185,16 +185,39 @@
     .search-box input::placeholder { color: var(--ink4); }
     .search-box input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,125,42,0.1); }
     .search-box svg { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--ink4); pointer-events: none; }
-    .fbar { display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; }
+    .sort-select {
+      background: var(--white); border: 1.5px solid rgba(26,23,20,0.12);
+      border-radius: 8px; color: var(--ink2); padding: 0.7rem 0.9rem;
+      font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 400;
+      cursor: pointer; outline: none; box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .sort-select:focus { border-color: var(--gold); }
+    .view-toggle { display: flex; gap: 0.3rem; flex-shrink: 0; }
+    .vtbtn {
+      width: 36px; height: 36px; border-radius: 7px;
+      background: var(--white); border: 1.5px solid rgba(26,23,20,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink4); cursor: pointer; transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .vtbtn.active { background: var(--ink); border-color: var(--ink); color: var(--white); }
+    .vtbtn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+    .controls-row2 { display: flex; width: 100%; max-width: 780px; align-items: center; gap: 0.8rem; }
+    .fbar-wrap { flex: 1; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .fbar-wrap::-webkit-scrollbar { display: none; }
+    .fbar { display: flex; gap: 0.45rem; white-space: nowrap; padding-bottom: 2px; }
     .fbtn {
       background: var(--white); border: 1.5px solid rgba(26,23,20,0.1);
       color: var(--ink3); padding: 0.42rem 1.1rem; border-radius: 999px;
       font-family: 'Outfit', sans-serif; font-size: 0.74rem; font-weight: 400;
-      cursor: pointer; transition: all 0.2s;
+      cursor: pointer; transition: all 0.2s; flex-shrink: 0;
       box-shadow: var(--shadow-sm);
     }
     .fbtn:hover { border-color: var(--gold); color: var(--gold); }
     .fbtn.active { background: var(--ink); border-color: var(--ink); color: var(--white); font-weight: 500; }
+    .results-count { font-size: 0.72rem; color: var(--ink4); white-space: nowrap; flex-shrink: 0; letter-spacing: 0.03em; }
+    .results-count strong { color: var(--gold); font-weight: 600; }
 
     /* ── GRID ── */
     .pgrid {
@@ -202,6 +225,37 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.4rem;
     }
+    .pgrid.list-view { grid-template-columns: 1fr; gap: 0.7rem; }
+    .pgrid.list-view .pcard { flex-direction: row; max-height: 130px; }
+    .pgrid.list-view .pcard-img { width: 130px; min-width: 130px; aspect-ratio: unset; height: 130px; }
+    .pgrid.list-view .pbody { padding: 0.85rem 1.1rem; flex-direction: row; flex-wrap: wrap; align-content: center; gap: 0 0.8rem; }
+    .pgrid.list-view .pname { font-size: 0.95rem; width: 100%; margin-bottom: 0.15rem; }
+    .pgrid.list-view .pdesc { display: none; }
+    .pgrid.list-view .bwa { margin-left: auto; align-self: center; white-space: nowrap; flex-shrink: 0; }
+    .pgrid.list-view .pcard-zoom-hint { display: none; }
+
+    /* ── Próximamente placeholder ── */
+    .img-ph {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--bg3) 0%, #e8e4dc 100%);
+    }
+    .img-ph-icon {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-l));
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0.55;
+    }
+    .img-ph-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink4);
+    }
+
+    /* article number more prominent */
+    .part { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink3); font-weight: 500; margin-bottom: 0.18rem; }
 
     /* ── CARD ── */
     .pcard {
@@ -252,9 +306,8 @@
     .pcard:hover .zoom-icon { opacity: 1; transform: scale(1); }
 
     .pbody { padding: 1rem 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; }
-    .part { font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink4); margin-bottom: 0.18rem; }
     .pcat { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.3rem; }
-    .pname { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 600; color: var(--ink); line-height: 1.22; margin-bottom: 0.45rem; letter-spacing: -0.01em; }
+    .pname { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.15rem; font-weight: 600; color: var(--ink); line-height: 1.2; margin-bottom: 0.45rem; letter-spacing: 0em; }
     .pdim { font-size: 0.75rem; font-weight: 500; color: var(--gold); background: var(--gold-pale); padding: 0.15rem 0.55rem; border-radius: 4px; display: inline-block; margin-bottom: 0.45rem; }
     .pdesc { font-size: 0.78rem; color: var(--ink3); line-height: 1.58; flex: 1; margin-bottom: 0.9rem; }
     .bwa {
@@ -328,7 +381,7 @@
     .modal-close:hover { background: var(--bg3); }
     .modal-art { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink4); margin-bottom: 0.2rem; }
     .modal-cat { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.55rem; }
-    .modal-name { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 600; color: var(--ink); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.7rem; }
+    .modal-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.9rem; font-weight: 600; color: var(--ink); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 0.7rem; }
     .modal-dim { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--gold-pale); color: var(--gold); font-size: 0.8rem; font-weight: 500; padding: 0.3rem 0.8rem; border-radius: 6px; margin-bottom: 1rem; }
     .modal-desc { font-size: 0.88rem; color: var(--ink3); line-height: 1.72; flex: 1; margin-bottom: 1.5rem; }
     .modal-wa {
@@ -353,11 +406,11 @@
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
       background: linear-gradient(90deg, var(--gold), var(--gold-l));
     }
-    .about-quote { font-family: 'Fraunces', serif; font-size: 1.4rem; font-style: italic; font-weight: 300; color: var(--ink); line-height: 1.5; margin-bottom: 1rem; }
+    .about-quote { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.6rem; font-style: italic; font-weight: 300; color: var(--ink); line-height: 1.5; margin-bottom: 1rem; }
     .about-from { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); }
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.8rem; }
     .stat-box { background: var(--bg3); border-radius: 10px; padding: 1rem 1.2rem; }
-    .stat-n { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 600; color: var(--gold); line-height: 1; }
+    .stat-n { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.2rem; font-weight: 600; color: var(--gold); line-height: 1; }
     .stat-l { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-top: 3px; }
     .about-text .sec-sub { max-width: 100%; }
 
@@ -406,10 +459,15 @@
       footer { flex-direction: column; text-align: center; }
       .modal { flex-direction: column; }
       .modal-img-side { width: 100%; height: 220px; }
+      .controls-row1 { flex-wrap: wrap; }
+      .sort-select { flex: 1; min-width: 140px; }
     }
     @media (max-width: 500px) {
       .hero-pills { gap: 0.5rem; }
       .pgrid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+      .pgrid.list-view .pcard { max-height: none; flex-direction: column; }
+      .pgrid.list-view .pcard-img { width: 100%; height: 180px; }
+      .view-toggle { display: none; }
     }
   </style>
 </head>
@@ -418,11 +476,8 @@
 <!-- HEADER -->
 <header>
   <a href="#inicio" class="logo">
-    <div class="logo-badge">🏆</div>
-    <div class="logo-t">
-      <span class="logo-name">PremiacionesBA</span>
-      <span class="logo-sub">Trofeos · Medallas · Plaquetas</span>
-    </div>
+    <img src="icono.png" alt="PremiacionesBA" style="height:44px; width:auto;">
+    <img src="wordmark.png" alt="PremiacionesBA" style="height:32px; width:auto; filter: brightness(0);">
   </a>
   <nav>
     <a href="#catalogo">Catálogo</a>
@@ -436,7 +491,7 @@
 </header>
 
 <!-- WA FLOTANTE -->
-<a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="wa-float">
+<a href="https://wa.me/5491131502179?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="wa-float" title="Contactar por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
 </a>
 
@@ -457,8 +512,11 @@
   <div class="hero-blob"></div>
   <div class="hero-dots"></div>
   <div class="hero-chip">Desde 1999 · Buenos Aires</div>
-  <h1>PremiacionesBA<br><em>Trofeos &amp; Distinciones</em></h1>
-  <p class="hero-p">Fabricamos trofeos, medallas y plaquetas personalizadas para eventos deportivos, empresariales y sociales.</p>
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;margin-bottom:1rem;animation:slideUp 0.6s 0.08s ease both;">
+    <img src="icono.png" alt="icono" style="height:clamp(150px,22vw,240px);width:auto;">
+    <img src="wordmark.png" alt="PremiacionesBA" style="height:clamp(70px,10vw,130px);width:auto;margin-top:-5px;">
+  </div>
+  <p class="hero-p" style="animation:slideUp 0.6s 0.18s ease both;">Fabricamos trofeos, medallas y plaquetas personalizadas para eventos deportivos, empresariales y sociales.</p>
   <div class="hero-pills">
     <div class="pill"><span>25</span> años de experiencia</div>
     <div class="pill"><span>178</span> artículos disponibles</div>
@@ -469,7 +527,7 @@
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       Ver catálogo
     </a>
-    <a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="btn-outline">
+    <a href="https://wa.me/5491131502179?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="btn-outline">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
       Consultar por WhatsApp
     </a>
@@ -485,16 +543,38 @@
       <p class="sec-sub">Hacé clic en cualquier producto para ver el detalle y consultar el precio por WhatsApp.</p>
     </div>
     <div class="controls rv">
-      <div class="search-box">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="searchInput" placeholder="Buscar producto o artículo..." oninput="onSearch()">
+      <div class="controls-row1">
+        <div class="search-box">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="Buscar producto o artículo..." oninput="onSearch()">
+        </div>
+        <select class="sort-select" id="sortSelect" onchange="onSort()">
+          <option value="default">Orden por defecto</option>
+          <option value="name">Nombre A–Z</option>
+          <option value="name-desc">Nombre Z–A</option>
+          <option value="dim">Tamaño (menor)</option>
+          <option value="dim-desc">Tamaño (mayor)</option>
+        </select>
+        <div class="view-toggle">
+          <button class="vtbtn active" id="btnGrid" onclick="setView('grid')" title="Vista grilla">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </button>
+          <button class="vtbtn" id="btnList" onclick="setView('list')" title="Vista lista">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="fbar" id="fbar">
-        <button class="fbtn active" onclick="setF('todos',this)">Todos</button>
-        <button class="fbtn" onclick="setF('trofeos',this)">Trofeos</button>
-        <button class="fbtn" onclick="setF('copas',this)">Copas</button>
-        <button class="fbtn" onclick="setF('futbol',this)">Especial Fútbol</button>
-        <button class="fbtn" onclick="setF('mega',this)">Línea Mega</button>
+      <div class="controls-row2">
+        <div class="fbar-wrap">
+          <div class="fbar" id="fbar">
+            <button class="fbtn active" onclick="setF('todos',this)">Todos</button>
+            <button class="fbtn" onclick="setF('trofeos',this)">Trofeos</button>
+            <button class="fbtn" onclick="setF('copas',this)">Copas</button>
+            <button class="fbtn" onclick="setF('futbol',this)">Especial Fútbol</button>
+            <button class="fbtn" onclick="setF('mega',this)">Línea Mega</button>
+          </div>
+        </div>
+        <span class="results-count" id="resultsCount"></span>
       </div>
     </div>
     <div class="pgrid" id="pgrid"></div>
@@ -503,6 +583,7 @@
 
 <!-- NOSOTROS -->
 <section id="nosotros" style="background:var(--bg2)">
+  <div class="container">
   <div class="about-grid">
     <div class="rv">
       <div class="about-card">
@@ -521,8 +602,9 @@
       <h2 class="sec-title">Fabricamos <em>distinciones</em> desde 1999</h2>
       <p class="sec-sub" style="margin-top:1rem">Somos especialistas en la fabricación y personalización de trofeos, medallas y plaquetas para eventos deportivos, sociales y empresariales en Buenos Aires y todo el país.</p>
       <p class="sec-sub" style="margin-top:0.7rem">Desde trofeos económicos hasta la <strong style="color:var(--gold)">Línea Mega</strong> de gran volumen, copas especiales y artículos exclusivos de fútbol.</p>
-      <a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="btn-solid" style="margin-top:2rem">Escribinos por WhatsApp</a>
+      <a href="https://wa.me/5491131502179?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="btn-solid" style="margin-top:2rem">Escribinos por WhatsApp</a>
     </div>
+  </div>
   </div>
 </section>
 
@@ -532,7 +614,7 @@
     <span class="sec-eyebrow">Estamos para ayudarte</span>
     <h2 class="sec-title">¿Tenés alguna <em>consulta</em>?</h2>
     <p class="sec-sub" style="margin:0.6rem auto 0">Escribinos y te respondemos con precios, disponibilidad y opciones de personalización.</p>
-    <a href="https://wa.me/5491100000000?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="wa-cta">
+    <a href="https://wa.me/5491131502179?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="wa-cta">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
       Consultá ahora por WhatsApp
     </a>
@@ -541,18 +623,15 @@
 
 <!-- FOOTER -->
 <footer>
-  <a href="#inicio" class="logo" style="text-decoration:none">
-    <div class="logo-badge" style="width:28px;height:28px;font-size:0.85rem;border-radius:6px">🏆</div>
-    <div class="logo-t">
-      <span class="logo-name" style="font-size:1rem;color:#fff">PremiacionesBA</span>
-      <span class="logo-sub">Buenos Aires</span>
-    </div>
+  <a href="#inicio" style="text-decoration:none;display:flex;align-items:center;gap:0.6rem;">
+    <img src="icono.png" alt="PremiacionesBA" style="height:36px; width:auto; opacity:0.85;">
+    <img src="wordmark.png" alt="PremiacionesBA" style="height:22px; width:auto; filter: brightness(0) invert(1); opacity:0.7;">
   </a>
-  <p class="fcopy">© 2025 PremiacionesBA — Todos los derechos reservados</p>
+  <p class="fcopy">© 2026 PremiacionesBA — Todos los derechos reservados</p>
 </footer>
 
 <script>
-const WA = "5491131502179"; // ← Reemplazá por el número real
+const WA = "5491131502179";
 const CATS = { trofeos:"Trofeos", copas:"Copas", futbol:"Especial Fútbol", mega:"Línea Mega" };
 
 const WA_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>`;
@@ -732,27 +811,58 @@ const P = [
   {id:"art171",cat:"copas",n:"Copón Labrado",d:"Copa oro con tapa y asas, pie labrado oro. Figura alada grande. Base plástica con sticker personalizado.",dim:"55 cm",b:"Premium",img:"fotos/art171.jpg"},
   {id:"art172",cat:"copas",n:"Copa con Triunfo",d:"Copa especial con base tipo triunfo. Alegoría 3D. Base plástica con sticker personalizado.",dim:"28 / 33 / 38 / 43 cm",img:"fotos/art172.jpg"},
   {id:"art173",cat:"futbol",n:"Pelota Estampada",d:"Trofeo Pelota y alegoría estampada sobre columna estrellada. Base plástica con sticker personalizado.",dim:"50 / 57 cm",img:"fotos/art173.jpg"},
-  {id:"art174",cat:"futbol",n:"Pelota con Pie y alegoría 3D grande. 2 Columnas. Figura central de puestos (1°, 2°,3°, etc.) estampada. Base rectangular plástica.",d:"Pelota oro 2 columnas.",dim:"55 cm",img:"fotos/art174.jpg"},
+  {id:"art174",cat:"futbol",n:"Pelota 2 Columnas",d:"Pelota oro con pie y alegoría 3D grande. 2 Columnas. Figura central de puestos (1°, 2°,3°, etc.) estampada. Base rectangular plástica.",dim:"55 cm",img:"fotos/art174.jpg"},
   {id:"art175",cat:"copas",n:"Copa Combinada 2 Columnas",d:"Trofeo con copa combinada y alegoría 3D grande. Dos columnas y varias figuras. Varios Colores. Base mármol.",dim:"50 cm",img:"fotos/art175.jpg"},
   {id:"art176",cat:"copas",n:"Copa Combinada Negra 3 Columnas",d:"Copa oro/negro, tres columnas, figuras estampadas. Base triangular plástica.",dim:"60 cm",img:"fotos/art176.jpg"},
   {id:"art177",cat:"copas",n:"Copón Labrado 2 Columnas",d:"Copón labrado oro con alegoría 3D. Dos columnas color a elección. Base rectangular plástica.",dim:"70 cm",img:"fotos/art177.jpg"},
   {id:"art178",cat:"copas",n:"Copón Labrado 3 Columnas",d:"El copón más imponente: tres columnas, cuerpo labrado. Alegoría 3D grande. Figuras estampadas. Centro con puesto. Base triangular plástica.",dim:"70 cm",b:"Top",img:"fotos/art178.jpg"},
 ];
 
-let filt = "todos", busq = "";
+let filt = "todos", busq = "", sortMode = "default", viewMode = "grid";
+
+// Helper: parse first numeric value from dim string for sorting
+function parseDim(dim) {
+  if (!dim) return 0;
+  const m = dim.match(/(\d+)/);
+  return m ? parseInt(m[1]) : 0;
+}
+
+function getSorted(list) {
+  const arr = [...list];
+  if (sortMode === "name") arr.sort((a,b) => a.n.localeCompare(b.n, 'es'));
+  else if (sortMode === "name-desc") arr.sort((a,b) => b.n.localeCompare(a.n, 'es'));
+  else if (sortMode === "dim") arr.sort((a,b) => parseDim(a.dim) - parseDim(b.dim));
+  else if (sortMode === "dim-desc") arr.sort((a,b) => parseDim(b.dim) - parseDim(a.dim));
+  return arr;
+}
 
 function waLink(p) {
   return `https://wa.me/${WA}?text=${encodeURIComponent(`Hola PremiacionesBA! 👋 Quisiera consultar el precio del *${p.n}* (${p.id.toUpperCase()}) — ${p.dim||''}. Gracias!`)}`;
 }
 
-function phHTML(size=44) {
-  return `<div class="img-ph"><svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Imagen del producto</span></div>`;
+function phHTML() {
+  return `<div class="img-ph">
+    <div class="img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+    <span class="img-ph-label">Próximamente</span>
+  </div>`;
 }
 
 function render() {
   const g = document.getElementById("pgrid");
   const t = busq.toLowerCase();
-  const list = P.filter(p => (filt==="todos"||p.cat===filt) && (!t||p.n.toLowerCase().includes(t)||p.id.includes(t)||p.d.toLowerCase().includes(t)));
+  const filtered = P.filter(p => (filt==="todos"||p.cat===filt) && (!t||p.n.toLowerCase().includes(t)||p.id.includes(t)||p.d.toLowerCase().includes(t)));
+  const list = getSorted(filtered);
+
+  // Update results counter
+  const counter = document.getElementById("resultsCount");
+  if (counter) {
+    if (filt === "todos" && !busq) {
+      counter.innerHTML = `<strong>${list.length}</strong> artículos`;
+    } else {
+      counter.innerHTML = `<strong>${list.length}</strong> de ${P.length}`;
+    }
+  }
+
   if (!list.length) { g.innerHTML=`<div class="no-res">No se encontraron productos.</div>`; return; }
   g.innerHTML = list.map((p,i) => `
     <div class="pcard rv" style="transition-delay:${Math.min(i%12,11)*0.032}s" onclick="openModal('${p.id}')">
@@ -784,6 +894,24 @@ function setF(c,btn) {
 }
 
 function onSearch() { busq=document.getElementById("searchInput").value; render(); }
+
+function onSort() { sortMode=document.getElementById("sortSelect").value; render(); }
+
+function setView(mode) {
+  viewMode = mode;
+  const g = document.getElementById("pgrid");
+  const btnGrid = document.getElementById("btnGrid");
+  const btnList = document.getElementById("btnList");
+  if (mode === "list") {
+    g.classList.add("list-view");
+    btnList.classList.add("active");
+    btnGrid.classList.remove("active");
+  } else {
+    g.classList.remove("list-view");
+    btnGrid.classList.add("active");
+    btnList.classList.remove("active");
+  }
+}
 
 // MODAL
 function openModal(id) {
