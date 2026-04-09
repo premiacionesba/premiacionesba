@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PremiacionesBA — Catálogo Slideshow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#b07d2a;--gold-l:#d4a843;--gold-pale:#fdf3dc;--ink:#1a1714;--ink2:#3d3830;--ink3:#7a7060;--ink4:#b0a898;--bg:#f8f7f4;--white:#fff;--wa:#25d366;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--ink2);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;}
+
+    /* HEADER */
+    header{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,23,20,0.08);}
+    .logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none;}
+    nav{display:flex;align-items:center;gap:1.4rem;}
+    nav a{color:var(--ink3);text-decoration:none;font-size:0.78rem;font-weight:400;letter-spacing:0.04em;transition:color 0.2s;}
+    nav a:hover{color:var(--gold);}
+    .nav-wa{display:flex;align-items:center;gap:0.4rem;background:var(--wa);color:#fff!important;padding:0.44rem 0.9rem;border-radius:6px;font-weight:500!important;font-size:0.75rem!important;text-decoration:none;}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--ink2);border-radius:2px;}
+    .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:rgba(255,255,255,0.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,23,20,0.08);flex-direction:column;padding:1rem 1.5rem 1.5rem;box-shadow:0 8px 24px rgba(26,23,20,0.08);}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{color:var(--ink2);text-decoration:none;font-size:1rem;font-weight:400;padding:0.7rem 0;border-bottom:1px solid rgba(26,23,20,0.06);}
+    .mobile-menu a:last-child{border-bottom:none;}
+    .mobile-menu a:hover{color:var(--gold);}
+    .mobile-menu .mob-wa{display:flex;align-items:center;gap:0.5rem;background:var(--wa);color:#fff!important;padding:0.7rem 1rem;border-radius:7px;margin-top:0.5rem;justify-content:center;font-weight:500;border-bottom:none!important;}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8rem 2rem 4rem;text-align:center;background:linear-gradient(160deg,#fff 0%,var(--bg) 55%,var(--gold-pale) 100%);}
+    .hero-p{font-size:0.96rem;color:var(--ink3);line-height:1.75;max-width:440px;margin-bottom:2.5rem;}
+    .hero-cta{background:var(--ink);color:#fff;padding:0.82rem 2rem;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:500;}
+
+    /* CATALOG SECTION */
+    .cat-section{padding:4rem 0 0;background:var(--bg);}
+
+    /* FILTERS */
+    .filters{display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0 2rem 1.5rem;flex-wrap:wrap;}
+    .fbtn{background:var(--white);border:1.5px solid rgba(26,23,20,0.1);color:var(--ink3);padding:0.42rem 1.1rem;border-radius:999px;font-family:'Outfit',sans-serif;font-size:0.74rem;cursor:pointer;transition:all 0.2s;box-shadow:0 1px 6px rgba(26,23,20,0.06);}
+    .fbtn:hover{border-color:var(--gold);color:var(--gold);}
+    .fbtn.active{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:500;}
+    .search-center{display:flex;justify-content:center;padding:0 2rem 2rem;}
+    .search-box{position:relative;width:100%;max-width:360px;}
+    .search-box input{width:100%;background:var(--white);border:1.5px solid rgba(26,23,20,0.12);border-radius:8px;color:var(--ink);padding:0.7rem 1rem 0.7rem 2.6rem;font-family:'Outfit',sans-serif;font-size:0.85rem;outline:none;box-shadow:0 1px 6px rgba(26,23,20,0.06);transition:border-color 0.2s;}
+    .search-box input:focus{border-color:var(--gold);}
+    .search-box svg{position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);color:var(--ink4);pointer-events:none;}
+
+    /* SLIDESHOW */
+    .slideshow{position:relative;max-width:1100px;margin:0 auto;padding:0 5rem;}
+    .slide{display:none;animation:fadeIn 0.4s ease;}
+    .slide.active{display:flex;gap:0;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(26,23,20,0.12);background:var(--white);}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+    .slide-img{width:50%;background:var(--bg);position:relative;min-height:480px;}
+    .slide-img img{width:100%;height:100%;object-fit:cover;}
+    .slide-img-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;background:linear-gradient(135deg,var(--bg),#e8e4dc);}
+    .slide-img-ph svg{opacity:0.3;}
+    .slide-img-ph span{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink4);}
+    .slide-badge{position:absolute;top:1rem;left:1rem;background:var(--gold);color:#fff;font-size:0.55rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:0.22rem 0.65rem;border-radius:999px;z-index:5;}
+    .img-nav{display:none;} /* solo mobile */
+    .img-nav:hover{background:#fff;transform:translateY(-50%) scale(1.08);}
+    .img-nav:disabled{opacity:0.2;cursor:not-allowed;}
+    .img-nav-prev{left:0.6rem;}
+    .img-nav-next{right:0.6rem;}
+    .slide-info{flex:1;padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;}
+    .slide-counter{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink4);margin-bottom:0.5rem;}
+    .slide-id{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.15rem;}
+    .slide-cat{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;}
+    .slide-name{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--ink);line-height:1.1;margin-bottom:0.8rem;letter-spacing:-0.01em;}
+    .slide-dim{display:inline-block;background:var(--gold-pale);color:var(--gold);font-size:0.8rem;font-weight:500;padding:0.28rem 0.8rem;border-radius:5px;margin-bottom:1rem;}
+    .slide-desc{font-size:0.86rem;color:var(--ink3);line-height:1.72;margin-bottom:2rem;flex:1;}
+    .slide-wa{display:flex;align-items:center;justify-content:center;gap:0.55rem;background:var(--wa);color:#fff;padding:0.88rem 1.5rem;border-radius:8px;font-size:0.86rem;font-weight:500;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,0.25);transition:opacity 0.2s,transform 0.2s;}
+    .slide-wa:hover{opacity:0.88;transform:translateY(-2px);}
+    .slide-note{margin-top:0.6rem;font-size:0.7rem;color:var(--ink4);text-align:center;}
+    .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:var(--white);border:1.5px solid rgba(26,23,20,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink2);box-shadow:0 4px 16px rgba(26,23,20,0.1);transition:all 0.2s;z-index:10;}
+    .nav-arrow:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-50%) scale(1.05);}
+    .nav-prev{left:0;}
+    .nav-next{right:0;}
+    .nav-arrow:disabled{opacity:0.3;cursor:not-allowed;}
+    .dots{display:flex;justify-content:center;gap:0.5rem;padding:2rem 2rem 1rem;flex-wrap:wrap;}
+    .dot{width:8px;height:8px;border-radius:50%;background:rgba(26,23,20,0.15);cursor:pointer;transition:all 0.2s;border:none;flex-shrink:0;}
+    .dot.active{background:var(--gold);width:24px;border-radius:4px;}
+    .counter-bar{text-align:center;padding:0 2rem 3rem;font-size:0.72rem;color:var(--ink4);letter-spacing:0.05em;}
+    .counter-bar strong{color:var(--gold);}
+    .no-res{padding:4rem;text-align:center;color:var(--ink3);}
+    .wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;width:52px;height:52px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:transform 0.2s;}
+    .wa-float:hover{transform:scale(1.1);}
+    footer{background:#0f0d0a;padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+    .fcopy{font-size:0.68rem;color:rgba(255,255,255,0.3);}
+    @media(max-width:768px){
+      header{padding:0 1rem;}
+      nav a:not(.nav-wa){display:none;}
+      .nav-wa{display:none;}
+      .hamburger{display:flex;}
+      .nav-arrow{display:none;}
+      .img-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.85);backdrop-filter:blur(4px);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink2);z-index:10;box-shadow:0 2px 12px rgba(26,23,20,0.15);}
+      .img-nav:disabled{opacity:0.2;}
+      .img-nav-prev{left:0.6rem;}
+      .img-nav-next{right:0.6rem;}
+      .slideshow{padding:0;}
+      .slide.active{flex-direction:column;}
+      .slide-img{width:100%;min-height:260px;max-height:360px;}
+      .slide-info{padding:1.4rem 1.2rem 1.8rem;}
+      .slide-name{font-size:1.5rem;}
+      .slide-desc{margin-bottom:1.2rem;}
+      .dots{padding:1.5rem 1rem 0.5rem;}
+      .counter-bar{padding:0 1rem 2rem;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <a href="#inicio" class="logo">
+    <img src="icono.png" style="height:40px;width:auto;">
+    <img src="wordmark.png" style="height:28px;width:auto;">
+  </a>
+  <nav>
+    <a href="index.html">Catálogo grilla</a>
+    <a href="#catalogo">Slideshow</a>
+    <a href="https://wa.me/5491131502179" target="_blank" class="nav-wa">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="toggleMenu()">Catálogo grilla</a>
+  <a href="#catalogo" onclick="toggleMenu()">Slideshow</a>
+  <a href="https://wa.me/5491131502179" target="_blank" class="mob-wa">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+<a href="https://wa.me/5491131502179" target="_blank" class="wa-float">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<section class="hero" id="inicio">
+  <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:1rem;">
+    <img src="icono.png" style="height:clamp(140px,20vw,210px);width:auto;">
+    <img src="wordmark.png" style="height:clamp(65px,9vw,120px);width:auto;margin-top:-5px;">
+  </div>
+  <p class="hero-p">Fabricamos trofeos, medallas y plaquetas personalizadas para eventos deportivos, empresariales y sociales.</p>
+  <a href="#catalogo" class="hero-cta">Ver catálogo</a>
+</section>
+
+<section class="cat-section" id="catalogo">
+  <div class="filters" id="fbar">
+    <button class="fbtn active" onclick="setF('todos',this)">Todos</button>
+    <button class="fbtn" onclick="setF('trofeos',this)">Trofeos</button>
+    <button class="fbtn" onclick="setF('copas',this)">Copas</button>
+    <button class="fbtn" onclick="setF('futbol',this)">Fútbol</button>
+    <button class="fbtn" onclick="setF('mega',this)">Mega</button>
+  </div>
+  <div class="search-center">
+    <div class="search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar producto..." oninput="onSearch()">
+    </div>
+  </div>
+
+  <div class="slideshow" id="slideshow">
+    <button class="nav-arrow nav-prev" id="prevBtn" onclick="navigate(-1)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <div id="pgrid"></div>
+    <button class="nav-arrow nav-next" id="nextBtn" onclick="navigate(1)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  </div>
+  <div class="dots" id="dots"></div>
+  <div class="counter-bar" id="counterBar"></div>
+</section>
+
+<footer>
+  <a href="#inicio" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+    <img src="icono.png" style="height:30px;opacity:0.75;">
+    <img src="wordmark.png" style="height:18px;filter:brightness(0) invert(1);opacity:0.55;">
+  </a>
+  <p class="fcopy">© 2026 PremiacionesBA — Todos los derechos reservados</p>
+</footer>
+
+<script>
+const WA="5491131502179",CATS={trofeos:"Trofeos",copas:"Copas",futbol:"Especial Fútbol",mega:"Línea Mega"};
+const WA_SVG=`<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>`;
+const P = [
+  {id:"art1",cat:"trofeos",n:"Alegorías Varios Deportes",d:"Disponible en: Hanball, Voley, Paddle, Atletismo, Natación, Truco, Bowling, A. Marciales, Motos, Bochas, Arquero, Fútbol, Pesca, Tenis, Ciclismo, Ajedrez, Basquet y más.",dim:"15 cm · Base mármol",b:"Varios deportes", img:"fotos/art1.jpg"},
+  {id:"art2",cat:"trofeos",n:"Alegorías Chicas",d:"Figuras deportivas femeninas y masculinas. Base plástica negra.",dim:"13/15 cm", img:"fotos/art2.jpg"},
+  {id:"art3",cat:"trofeos",n:"Trofeo Truco",d:"Alegoría temática de truco. Base tapa plástica negra/oro.",dim:"15 cm", img:"fotos/art3.jpg"},
+  {id:"art4",cat:"trofeos",n:"Trofeo Fútbol",d:"Figura de futbolista dorado. Base mini plástica.",dim:"16 cm", img:"fotos/art4.jpg"},
+  {id:"art5",cat:"trofeos",n:"Trofeo Alada",d:"Figura alada dorada clásica. Base tapa plástica negra/oro.",dim:"16 cm", img:"fotos/art5.jpg"},
+  {id:"art6",cat:"trofeos",n:"Alegorías con Antorchas",d:"Varios deportes con antorchas. Base tapa plástica negra/oro.",dim:"16 cm", img:"fotos/art6.jpg"},
+  {id:"art7",cat:"trofeos",n:"Trofeo Pelota Triple",d:"Figura con tres pelotas de fútbol. Base tapa plástica negra/oro.",dim:"16 cm", img:"fotos/art7.jpg"},
+  {id:"art8",cat:"trofeos",n:"Trofeo Basquet",d:"Figura de básquetbolista. Base tapa plástica negra/oro.",dim:"16 cm", img:"fotos/art8.jpg"},
+  {id:"art9",cat:"trofeos",n:"Alegorías Chicas Varios Deportes",d:"Miniaturas deportivas. Base mármol.",dim:"11 cm", img:"fotos/art9.jpg"},
+  {id:"art10",cat:"trofeos",n:"Fútbol Femenino",d:"Figura futbolista femenina. Base mármol.",dim:"14 cm",img:"fotos/art10.jpg"},
+  {id:"art11",cat:"trofeos",n:"Fútbol Masculino",d:"Figura futbolista masculino. Base mármol.",dim:"14 cm",img:"fotos/art11.jpg"},
+  {id:"art12",cat:"trofeos",n:"Pelota Triple",d:"Trío de pelotas estilizado. Base mármol.",dim:"14 cm",img:"fotos/art12.jpg"},
+  {id:"art13",cat:"trofeos",n:"Alada con Centro",d:"Figura alada con espacio para medallón personalizado.",dim:"14 cm",img:"fotos/art13.jpg"},
+  {id:"art14",cat:"trofeos",n:"Alada",d:"Figura alada clásica. Base mármol.",dim:"14 cm",img:"fotos/art14.jpg"},
+  {id:"art15",cat:"trofeos",n:"Chilena",d:"Futbolista en posición de chilena. Base mármol.",dim:"14 cm",img:"fotos/art15.jpg"},
+  {id:"art16",cat:"trofeos",n:"Trofeo Pesca",d:"Figura de pez para torneos. Base mármol.",dim:"9.5 cm",img:"fotos/art16.jpg"},
+  {id:"art17",cat:"trofeos",n:"Trofeo Karting",d:"Figura de kart de competición. Base mármol.",dim:"13 cm",img:"fotos/art17.jpg"},
+  {id:"art18",cat:"trofeos",n:"Trofeo Ciclismo",d:"Figura de ciclista en acción. Dos tamaños.",dim:"Grande 14 / Chico 12 cm",img:"fotos/art18.jpg"},
+  {id:"art19",cat:"trofeos",n:"Trofeo Basquet Grande",d:"Basketbolista premiado. Base mármol.",dim:"15 cm",img:"fotos/art19.jpg"},
+  {id:"art20",cat:"trofeos",n:"Trofeo Fútbol Grande",d:"Figura futbolista grande. Base mármol.",dim:"16 cm",img:"fotos/art20.jpg"},
+  {id:"art21",cat:"trofeos",n:"Trofeo Automovilismo",d:"Figura de auto de carrera. Base mármol.",dim:"14 cm",img:"fotos/art21.jpg"},
+  {id:"art22",cat:"trofeos",n:"Fútbol Femenino Doble",d:"Par de figuras femeninas en color. Base mármol.",dim:"16 cm",b:"Novedad",img:"fotos/art22.jpg"},
+  {id:"art23",cat:"trofeos",n:"Fútbol Masculino Doble",d:"Par de figuras masculinas. Dos tamaños.",dim:"Grande 17 / Chico 10 cm",img:"fotos/art23.jpg"},
+  {id:"art24",cat:"trofeos",n:"Alada con Centro Grande",d:"Figura alada con medallón centralizable.",dim:"17 cm",img:"fotos/art24.jpg"},
+  {id:"art25",cat:"trofeos",n:"Fútbol Laurel con Centro",d:"Futbolista con laureles y centro para logo.",dim:"17 cm",img:"fotos/art25.jpg"},
+  {id:"art26",cat:"trofeos",n:"Karate Laurel Grande",d:"Figura de karateca con laureles. Base mármol.",dim:"17 cm",img:"fotos/art26.jpg"},
+  {id:"art27",cat:"trofeos",n:"Trofeo Hockey",d:"Figura con palos de hockey. Base mármol.",dim:"15 cm",img:"fotos/art27.jpg"},
+  {id:"art28",cat:"trofeos",n:"Trofeo Truco Grande",d:"Figura temática de truco con laurel.",dim:"17 cm",img:"fotos/art28.jpg"},
+  {id:"art29",cat:"trofeos",n:"Trofeo Ajedrez",d:"Pieza de ajedrez con laurel. Base mármol.",dim:"15 cm",img:"fotos/art29.jpg"},
+  {id:"art30",cat:"trofeos",n:"Trofeo Patín Fem/Masc",d:"Figura de patinaje artístico. Base mármol.",dim:"14 cm",img:"fotos/art30.jpg"},
+  {id:"art31",cat:"trofeos",n:"Trofeo Karate Grande",d:"Karateca de gran tamaño. Base mármol.",dim:"16 cm",img:"fotos/art31.jpg"},
+  
+
+  {id:"art33a",cat:"trofeos",n:"Alegorías Estampadas chicas",d:"Todos los deportes. Base tapa plástica negra/oro.",dim:"10/12 cm",b:"Varios deportes",img:"fotos/art33a.jpg"},
+  {id:"art33b",cat:"trofeos",n:"Alegorías Estampadas Chicas",d:"Varios deportes con base tapa plástica negra/oro.",dim:"13/15 cm",img:"fotos/art33b.jpg"},
+  {id:"art33c",cat:"trofeos",n:"Alegorías Estampadas Chicas",d:"Figuras estampadas con puestos (1°, 2°, 3°) y logos personalizables, base mármol.",dim:"8/9 cm",b:"Con puestos",img:"fotos/art33c.jpg"},
+  {id:"art33d",cat:"trofeos",n:"Alegorías Estampadas Chicas",d:"Figuras estampadas varios deportes, base mármol.",dim:"11/13 cm",img:"fotos/art33d.jpg"},
+  {id:"art34a",cat:"trofeos",n:"Alegorías Estampadas Medianas",d:"Figuras estampadas bronce. Base tapa plástica negra/oro..",dim:"17/19 cm",img:"fotos/art34a.jpg"},
+  {id:"art34b",cat:"trofeos",n:"Alegorías Estampadas Medianas",d:"Figuras estampadas con puestos, base mármol",dim:"14/15cm",img:"fotos/art34b.jpg"},
+  {id:"art35a",cat:"trofeos",n:"Alegorías Estampadas Grandes",d:"Figuras estampadas grandes, con bronce. Base tapa plástica negra/oro.",dim:"17/20 cm",img:"fotos/art35a.jpg"},
+  {id:"art35b",cat:"trofeos",n:"Alegorías Estampadas Grandes",d:"Figuras estampadas grandes, con bronce. Base mármol",dim:"15/17 cm",img:"fotos/art35b.jpg"},
+  {id:"art36",cat:"trofeos",n:"Trofeo 1 Columna Línea Económica",d:"Columna varios colores a elección. Alegorías chicas Oro/Plata.",dim:"17/ 21/24 cm",img:"fotos/art36.jpg"},
+  {id:"art37",cat:"trofeos",n:"Trofeo 1 Columna Línea Económica",d:"Columna Color a elección con alegorías medianas Oro/Plata.",dim:"20/ 24/28 cm",img:"fotos/art37.jpg"},
+  {id:"art38",cat:"trofeos",n:"Trofeo 1 Columna Línea Standard",d:"Columna varios colores. Alegorías chicas y medianas. Base mármol.",dim:"Chicas 17-24 cm · Medianas 22-29 cm",img:"fotos/art38.jpg"},
+  {id:"art39",cat:"trofeos",n:"Trofeo 1 Columna Línea Standard",d:"Columna varios colores. Alegorías Grandes Oro/Plata, Plata/fucsia. Base mármol.",dim:"25 / 34 / 39 cm",img:"fotos/art39.jpg"},
+  {id:"art40",cat:"trofeos",n:"Trofeo 1 Columna Línea Económica",d:"Columna colores a elección. Alegorías estampadas. Base mármol",dim:"Chicas 17-21 · Medianas 23-29 · Grandes 25-34 cm",img:"fotos/art40.jpg"},
+  {id:"art41",cat:"trofeos",n:"Trofeo 1 Columna Línea Standard",d:"Columna varios colores. Alegorías estampadas. Base mármol.",dim:"Chicas 17-23 · Medianas 23-29 · Grandes 27-33 cm",img:"fotos/art41.jpg"},
+  {id:"art42",cat:"trofeos",n:"Trofeo 1 Columna Línea Standard",d:"Columna de color a elección con alegoría estampada grande. Base de mármol.",dim:"27 / 30 / 33 cm",img:"fotos/art42.jpg"},
+  {id:"art43",cat:"trofeos",n:"Trofeo Columna Estampada",d:"Columna estampada chica Dorada o Arcoiris con figura deportiva estampada. Base mármol.",dim:"19 a 22 cm",img:"fotos/art43.jpg"},
+  {id:"art44",cat:"trofeos",n:"Trofeo Columna Estampada",d:"Alegoría estampada chica, varios deportes. Base mármol.",dim:"19 a 22 cm",b:"Color",img:"fotos/art44.jpg"},
+  {id:"art45",cat:"trofeos",n:"Trofeo Columna Griega",d:"Con alegoría estampada grande. Base mármol.",dim:"25 cm",img:"fotos/art45.jpg"},
+  {id:"art46",cat:"trofeos",n:"Trofeo con Puesto",d:"Columna estampada con alegoría de puesto 1°/2°/3°. Base mármol.",dim:"27/29 cm",img:"fotos/art46.jpg"},
+  {id:"art47",cat:"trofeos",n:"Trofeo Columna Mediana Oro",d:"Columna dorada con alegoría estampada mediana. Base mármol.",dim:"27/29 cm",img:"fotos/art47.jpg"},
+  {id:"art48",cat:"trofeos",n:"Trofeo Columna Grande",d:"Columna Varios colores con figura estampada grande. Base mármol.",dim:"30/32 cm",img:"fotos/art48.jpg"},
+  {id:"art49",cat:"copas",n:"Copa 5 con Alegoría Chica",d:"Copa clásica dorada con figura 3D Varios Deportes. Base mármol/plástica con sticker personalizado.",dim:"23 / 26cm",img:"fotos/art49.jpg"},
+  {id:"art50",cat:"copas",n:"Copa 10 en dos tamaños",d:"Copa dorada con figura 3D chica y mediana. Base mármol/Plástica con sticker personalizado.",dim:"27 / 30 cm",img:"fotos/art50.jpg"},
+  {id:"art51",cat:"copas",n:"Copa 18 con Alegoría Mediana",d:"Copa alta (chica/Mediana/Grande) con Portacentro personalizado. Base mármol.",dim:"23 / 32 / 36 cm",img:"fotos/art51.jpg"},
+  {id:"art52",cat:"copas",n:"Copa con asa ancha",d:"Copa premium con alegoría 3D varios deportes. Base plástica con sticker personalizado.",dim:"28 / 33 / 37 cm",b:"Premium",img:"fotos/art52.jpg"},
+  
+  {id:"art59",cat:"copas",n:"Copa Italia Chica",d:"Copa con tapa, Oro/Plata con figura 3D. Todos los deportes. Base mármol.",dim:"22 cm",img:"fotos/art59.jpg"},
+  {id:"art60",cat:"copas",n:"Copa Italia Mediana",d:"Copa con tapa, Oro/Plata con figura 3D. Todos los deportes. Base mármol.",dim:"30 cm",img:"fotos/art60.jpg"},
+  {id:"art61",cat:"copas",n:"Copa Italia Grande",d:"Copa clásica con tapa, Oro/Plata con figura 3D. Todos los deportes. Base mármol.",dim:"35 cm",img:"fotos/art61.jpg"},
+  {id:"art62",cat:"copas",n:"Copa Italia Chica",d:"Copa Oro/ Plata con figura 3D, todos los deportes. Base plástica con sticker personalizado.",dim:"27 cm",img:"fotos/art62.jpg"},
+  {id:"art63",cat:"copas",n:"Copa Italia Mediana",d:"Copa Oro/ Plata con figura 3D, todos los deportes. Base plástica con sticker personalizado.",dim:"35 cm",img:"fotos/art63.jpg"},
+  {id:"art64",cat:"copas",n:"Copa Italia Grande",d:"Copa con tapa y asas. Oro/ Plata. Acabado premium. Figura 3D. Base plástica con sticker personalizado.",dim:"40 cm",b:"Premium",img:"fotos/art64.jpg"},
+  {id:"art65",cat:"copas",n:"Copa Italia Chica",d:" Copa Oro/Plata. Alegoría 3D. Accesorios varios colores a elección. Base mármol.",dim:"30 cm",img:"fotos/art65.jpg"},
+  {id:"art66",cat:"copas",n:"Copa Italia Chica",d:"Copa Italia Oro/ Plata. Color de caño a elección. Base mármol. Altura a elección.",dim:"35 / 40 / 45 cm",img:"fotos/art66.jpg"},
+  {id:"art67",cat:"copas",n:"Copa Italia Mediana",d:"Copa Italia mediana con figura especial. Oro/ Plata. Color de accesorios a elección. Base plástica con sticker personalizado.",dim:"45 / 48 / 53 cm",img:"fotos/art67.jpg"},
+  {id:"art68",cat:"copas",n:"Copa Italia Chica",d:"Copa Oro/ Plata. Alegoría 3D grande, todos los deportes. Base plástica con sticker personalizado.",dim:"50 cm",img:"fotos/art68.jpg"},
+  {id:"art69",cat:"copas",n:"Copa Italia Grande",d:"Copa Oro/ plata. Alegoría 3D grande. Color de accesorios a elección. Base plástica con sticker personalizado.",dim:"55 cm",img:"fotos/art69.jpg"},
+  {id:"art70",cat:"copas",n:"Copa 13 Oro chica",d:"Copa pequeña dorada con figura 3D. Base mármol.",dim:"23 cm",img:"fotos/art70.jpg"},
+  {id:"art71",cat:"copas",n:"Copa 13 Oro chica",d:"Copa con figura de deporte. Base plástica con sticker personalizado.",dim:"32 cm",img:"fotos/art71.jpg"},
+  {id:"art72",cat:"copas",n:"Copa Mediana Labrada",d:"Con metalizado Oro y plata combinados. Alegoría varios deportes. Base plástica con sticker personalizado.",dim:"35 cm",img:"fotos/art72.jpg"},
+  {id:"art73",cat:"copas",n:"Copa Italia Grande",d:"Copa grande dorada con alegoría deportiva. Base plástica con sticker personalizado.",dim:"43 cm",img:"fotos/art73.jpg"},
+  {id:"art74",cat:"copas",n:"Copa con Tapa",d:"Copa grande premium plata/Oro con asa fina. Base plástica con sticker personalizado.",dim:"46 cm",b:"Premium",img:"fotos/art74.jpg"},
+  {id:"art75",cat:"copas",n:"Copa Pétalo chica",d:"Copa labrada compacta de boca abierta. Base plástica con sticker personalizado.",dim:"20 cm",img:"fotos/art75.jpg"},
+  {id:"art76",cat:"copas",n:"Copa Pétalo mediana",d:"Copa labrada compacta de boca abierta. Base plástica con sticker personalizado.",dim:"23 cm",img:"fotos/art76.jpg"},
+  {id:"art77",cat:"copas",n:"Copa Pétalo grande",d:"Copa labrada compacta de boca abierta. Base plástica con sticker personalizado.",dim:"26 cm",img:"fotos/art77.jpg"},
+  {id:"art78",cat:"copas",n:"Copa Pétalo extra grande",d:"Copa labrada compacta de boca abierta. Base plástica con sticker personalizado.",dim:"30 cm",img:"fotos/art78.jpg"},
+  {id:"art79",cat:"trofeos",n:"Trofeo de Fútbol",d:"Figura de fútbol 3D, grande oro/plata. Base plástica con sticker personalizado.",dim:"24/27 cm",img:"fotos/art79.jpg"},
+  {id:"art80",cat:"trofeos",n:"Trofeo Pelota de fútbol",d:"Pelota oro/plata con figura a elección. Varios colores. Base mármol.",dim:"24 / 27 / 30 cm",img:"fotos/art80.jpg"},
+  {id:"art81",cat:"copas",n:"Copa con Cúpula",d:"Copa especial con cúpula decorativa. Alegoría antorcha olímpica. Caño a elección. Base mármol.",dim:"25 / 28 / 31 cm",img:"fotos/art81.jpg"},
+  {id:"art82",cat:"trofeos",n:"Trofeo Figura Alada grande",d:"Pedestal oro/plata con figura alada dorada. Base mármol.",dim:"25 cm",b:"Novedad",img:"fotos/art82.jpg"},
+  {id:"art83",cat:"trofeos",n:"Trofeo 2 Columnas",d:"Con figura deportiva metalizada. Colores a elección. Base mármol.",dim:"30 / 35 / 40 cm",img:"fotos/art83.jpg"},
+  {id:"art84",cat:"trofeos",n:"Trofeo 2 Columnas con Pelota",d:"Con pelota y figura estampada. Colores a elección. Base mármol.",dim:"30 / 35 / 40 cm",img:"fotos/art84.jpg"},
+  {id:"art85",cat:"trofeos",n:"Trofeo 2 Columnas con Copa",d:"Con copa 18 y figura estampada. Colores a elección. Base mármol.",dim:"33 / 37 / 42 cm",img:"fotos/art85.jpg"},
+  {id:"art86",cat:"trofeos",n:"Trofeo 2 Columnas con Copa",d:"Con copa 5 y figura estampada. Colores a elección. Base mármol.",dim:"35 / 40 / 45 cm",img:"fotos/art86.jpg"},
+  {id:"art87",cat:"trofeos",n:"Trofeo 2 Columnas Clásico",d:"Trofeo con figuras laterales y alegoría central. Caños de varios colores, copa 5 y deporte a elección. Base mármol.",dim:"35 / 40 / 45 cm",img:"fotos/art87.jpg"},
+  {id:"art88",cat:"trofeos",n:"Trofeo 2 Columnas Grande",d:"Con copa 10 y alegoría alada, figuras laterales a elección, caños varios colores. Base mármol.",dim:"40 / 45 / 50 cm",img:"fotos/art88.jpg"},
+  {id:"art89",cat:"trofeos",n:"Trofeo 2 Columnas Estampado",d:"Con copa 13 y figura estampada. Figuras laterales a elección. Base mármol.",dim:"50 / 55 / 60 cm",img:"fotos/art89.jpg"},
+  {id:"art90",cat:"trofeos",n:"Trofeo 2 Columnas con Copa texturizada",d:"Copa premium con tapa, alada grande. Caños y alegorías laterales a elección. Base mármol.",dim:"50 / 55 / 60 cm",img:"fotos/art90.jpg"},
+  {id:"art91",cat:"trofeos",n:"Trofeo 2 Columnas con copa",d:"Copa Romana con alegoría 3D grande. Óvalo plástico metalizado con figuras laterales a elección. Varios colores. Base mármol.",dim:"50 / 55 / 60 cm",img:"fotos/art91.jpg"},
+  {id:"art92",cat:"copas",n:"Copa bicolor",d:"Copa alta con figura y tapa. Base plástica con sticker personalizado.",dim:"53 cm",img:"fotos/art92.jpg"},
+  {id:"art93",cat:"trofeos",n:"Trofeo 2 columnas con Copa Pétalo",d:"Copa oro con pie. 2 columnas, colores a elección, con alada 3 D en el centro. Base mármol.",dim:"35 / 40 / 45 cm",img:"fotos/art93.jpg"},
+  {id:"art94",cat:"trofeos",n:"Trofeo 2 Columnas con Copa Bicolor",d:"Copa labrada oro con tapa plata. Óvalo plastico con figuras laterales. Caños y figura central a elección. Base mármol.",dim:"60 / 65 / 70 cm",img:"fotos/art94.jpg"},
+  {id:"art95",cat:"trofeos",n:"Trofeo 3 Columnas invertidas",d:"Copa pétalo. Colores a elección. Con figuras laterales en piso superior e inferior. Alegoría central alada. Base mármol.",dim:"45 / 50 / 55 cm",img:"fotos/art95.jpg"},
+  {id:"art96",cat:"copas",n:"Super Copón",d:"Copón de gran presencia con figura a elección. Base plástica con sticker personalizado.",dim:"60 cm",b:"Super",img:"fotos/art96.jpg"},
+  {id:"art97",cat:"trofeos",n:"Trofeo 2 Columnas con copa Romana",d:"Alada con portacentro personalizado. Óvalo plástico con figuras laterales a elección. Alegoría central varios deportes. Base mármol.",dim:"50 / 55 / 60 cm",img:"fotos/art97.jpg"},
+  {id:"art98",cat:"trofeos",n:"Trofeo 3 Columnas con pelota",d:"Gran volúmen, columna 3D, pelota de fútbol con centro personalizado y alegoría alada. Figuras central y laterales a elección. Varios colores de caño. Base de mármol con pie plástico.",dim:"70 / 80 / 90 cm",img:"fotos/art98.jpg"},
+  {id:"art99",cat:"trofeos",n:"Trofeo 3 Columnas con copón",d:"Tres columnas con copón premium y alegoría deportiva. Colores a elección. Centro con puesto en altura (1°, 2°, 3°,etc.). Base mármol con pie plástico.",dim:"70 / 80 / 90 cm",img:"fotos/art99.jpg"},
+  {id:"art100",cat:"trofeos",n:"Trofeo 3 Columnas XL",d:"Trofeo XL tres columnas con copa de color. Alegoría portacentro personalizado. Base mármol con pie plático oro.",dim:"85 / 95 / 105 cm",b:"XL",img:"fotos/art100.jpg"},
+  {id:"art101",cat:"trofeos",n:"Trofeo 3 Columnas invertidas",d:"Tres columnas con copa. Figuras y colores a elección. Base mármol con puesto a un lado.",dim:"70 / 80 / 90 cm",img:"fotos/art101.jpg"},
+  {id:"art102",cat:"trofeos",n:"Trofeo 3 Columnas Bronce",d:"Tres columnas con copa labrada. Alegorías estampadas a elección.",dim:"60 / 65 / 70 cm",img:"fotos/art102.jpg"},
+  {id:"art103",cat:"trofeos",n:"Trofeo 3 Columnas Negro",d:"Tres columnas negras con copa alta plateada y alegoría 3D grande. Varias figuras. Base mármol.",dim:"70 / 80 / 90 cm",img:"fotos/art103.jpg"},
+  {id:"art104",cat:"mega",n:"Línea Mega - 5 columnas",d:"Trofeo de gran volumen para torneos especiales. Copón y alegoría grandes. Columnas doradas y plateadas. Varias figuras y copita con figura central en altura. Base mármol con pie plástico.",dim:"100 / 115 / 130 cm",b:"Línea Mega",img:"fotos/art104.jpg"},
+  {id:"art105",cat:"mega",n:"Línea Mega - 5 columnas",d:"Trofeo con copa y alegoría grandes. Columnas con colores a elección. Gran impacto visual. Copita con figura central en altura. Base mármol con pie plástico.",dim:"120 / 135 / 150 cm",b:"Línea Mega",img:"fotos/art105.jpg"},
+  {id:"art106",cat:"mega",n:"Línea Mega - 7 columnas",d:"El más grande: Con copa y alegoría alada. Varias figuras y copita central con alegoría a elección. Base mármol con pie plástico.",dim:"130 / 150 / 170 cm",b:"Línea Mega",img:"fotos/art106.jpg"},
+  {id:"art107",cat:"copas",n:"Copa Egipcia",d:"Diseño ánfora egipcia. Dorada o plateada. Alegoría deportiva. Base plástica con sticker personalizado.",dim:"Chica 36 / Med 45 / Grande 55 cm",b:"Novedad",img:"fotos/art107.jpg"},
+  {id:"art108",cat:"copas",n:'Copa "Libertadores"',d:"Réplica estilo Copa Libertadores plateada. Base plástica con sticker personalizado.",dim:"Sin alegoría 35 / Con alegoría 45 cm",b:"Novedad",img:"fotos/art108.jpg"},
+  {id:"art109",cat:"copas",n:"Copa Ibiza",d:"Copa Ibiza con boca abierta en plata u oro. Base plástica con sticker personalizado.",dim:"Chica 35 / Grande 42 cm",b:"Novedad",img:"fotos/art109.jpg"},
+  {id:"art110",cat:"copas",n:"Copa Ibiza Oro y Plata",d:"Copa Ibiza con tapa y alegoría 3D. Acabado oro y plata. Base plástica con sticker personalizado.",dim:"Chica 50 / Grande 60 cm",img:"fotos/art110.jpg"},
+  {id:"art111",cat:"copas",n:"Copa Ibiza Oro y Negro",d:"Copa Ibiza en oro y negro con tapa y alegoría. Base plástica con sticker personalizado.",dim:"Chica 50 / Grande 60 cm",img:"fotos/art111.jpg"},
+  {id:"art112",cat:"copas",n:"Copa Ibiza con Alada",d:"Copa Ibiza con figura alada premium. Base plástica con sticker personalizado.",dim:"Chica 50 / Grande 60 cm",b:"Premium",img:"fotos/art112.jpg"},
+  {id:"art113",cat:"futbol",n:"Trofeo Pelota Grande",d:"Gran pelota dorada con alegoría 3D. Impactante presencia. Base plástica con sticker personalizado.",dim:"40 cm",b:"Especial",img:"fotos/art113.jpg"},
+  {id:"art114",cat:"futbol",n:"Pelota de Fútbol",d:"Trofeo pelota pequeña. Base plástica con sticker personalizado.",dim:"22 cm",img:"fotos/art114.jpg"},
+  {id:"art115",cat:"futbol",n:"Pelota con Figura",d:"Pelota con alegoría 3D. Base mármol.",dim:"23 cm",img:"fotos/art115.jpg"},
+  {id:"art116",cat:"futbol",n:"Balón de Oro",d:"Trofeo estilo Balón de Oro con alegoría 3D y escudo personalizado. Base plástica.",dim:"27 cm",b:"Balón de Oro",img:"fotos/art116.jpg"},
+  {id:"art117",cat:"futbol",n:"Botín Estampado Plano",d:"Botín estampado plano sobre columna labrada. Base plástica con sticker personalizado.",dim:"30 cm",img:"fotos/art117.jpg"},
+  {id:"art118",cat:"futbol",n:"Guante Estampado Plano",d:"Guante de arquero/a estampado plano. Base mármol.",dim:"18 cm",img:"fotos/art118.jpg"},
+  {id:"art119",cat:"futbol",n:"Botín Tridimensional alto",d:"Botín 3D oro/plata sobre columna estampada. Base plástica con sticker personalizado.",dim:"25 cm",img:"fotos/art119.jpg"},
+  {id:"art120",cat:"futbol",n:"Botín Tridimensional bajo",d:"Botín 3D en Oro o Plata y Fucsia. Base plástica con sticker personalizado.",dim:"20 x 20 cm",b:"Máximo Goleador",img:"fotos/art120.jpg"},
+  {id:"art121",cat:"futbol",n:"Guante de Arquero/a",d:"Guante de arquero/a plata y fucsia. Base plástica con sticker personalizado.",dim:"27 cm",b: "Premio Especial",img:"fotos/art121.jpg"},
+  {id:"art122",cat:"futbol",n:"Guante Tridimensional",d:"Guante de fútbol 3D dorado. Base plástica con sticker personalizado.",dim:"33 cm",img:"fotos/art122.jpg"},
+  {id:"art123",cat:"futbol",n:"Guante o Botín Grande",d:"Guante o botín grande 3D sobre columna. Base plástica con sticker personalizado.",dim:"40 cm",img:"fotos/art123.jpg"},
+  {id:"art124",cat:"futbol",n:"Guante con Balón",d:"Guante sosteniendo balón. Premio especial arqueros/as. Base plástica con sticker personalizado.",dim:"40 cm",img:"fotos/art124.jpg"},
+  {id:"art125",cat:"copas",n:"Copa 1 Pequeña",d:"Copa pequeña con alegoría estampada varios deportes. Base mármol.",dim:"22 cm",img:"fotos/art125.jpg"},
+  {id:"art126",cat:"copas",n:"Copa 1 Pequeña con columna",d:"Copa con alegorías estampadas chicas, en tres tamaños. Color de columna a elección. Base mármol.",dim:"25 / 28 / 31 cm",img:"fotos/art126.jpg"},
+  {id:"art127",cat:"copas",n:"Copa 2 con tapa",d:"Copa negra con figura estampada varios deportes. Base plástica con sticker personalizado.",dim:"37 cm",img:"fotos/art127.jpg"},
+  {id:"art128",cat:"copas",n:"Copa 20 con Alegorías medianas",d:"Copa en oro, plata o negro. Figuras 3D o estampadas, varios modelos. Base plástica con sticker personalizado.",dim:"45 cm",img:"fotos/art128.jpg"},
+  {id:"art129",cat:"futbol",n:"Pelota Americana Negra",d:"Trofeo con pelota americana chica. Alegoría mediana estampada. Base plástica con sticker personalizado.",dim:"25 cm",img:"fotos/art129.jpg"},
+  {id:"art130",cat:"futbol",n:"Pelota Americana Plata",d:"Trofeo con pelota americana chica. Alegoría 3D plata. Base plástica con sticker personalizado.",dim:"25 cm",img:"fotos/art130.jpg"},
+  {id:"art131",cat:"futbol",n:"Pelota Americana Fucsia",d:"Trofeo con pelota americana grande, combinada con pie oro o plata. Alegoría estampada. Base plástica con sticker personalizado.",dim:"40 cm",b:"Novedad",img:"fotos/art131.jpg"},
+  {id:"art132",cat:"futbol",n:"Pelota Americana Negra",d:"Trofeo con pelota americana grande, cuerpo oro o plata. Alegoría estampada.Base plástica con sticker personalizado.",dim:"48 cm",img:"fotos/art132.jpg"},
+  {id:"art133",cat:"futbol",n:"Pelota americana Plata",d:"Trofeo con pelota americana grande con alegoría estampada mediana.",dim:"54 cm",img:"fotos/art133.jpg"},
+  {id:"art134",cat:"futbol",n:"Pelota con Estrellas",d:"Pelota plata con estrellas y alegoría 3D. Columna parís plata. Base plástica con sticker personalizado.",dim:"53 cm",img:"fotos/art134.jpg"},
+  {id:"art135",cat:"futbol",n:"Pelota con Estrellas",d:"Pelota plata con estrellas sobre columna París fucsia. Alegoría mediana plana. Base plástica con sticker personalizado.",dim:"57 cm",img:"fotos/art135.jpg"},
+  {id:"art136",cat:"futbol",n:"Pelota Bicolor Grande",d:"Pelota blanca y negra. Base plástica con sticker personalizado.",dim:"28 cm",img:"fotos/art136.jpg"},
+  {id:"art137",cat:"futbol",n:"Pelota Bicolor Chica",d:"Pelota blanca y negra. Base plástica con sticker personalizado.",dim:"21 cm",img:"fotos/art137.jpg"},
+  {id:"art138",cat:"futbol",n:"Pelota Bicolor con Fortín",d:"Astro grande. Blanco y negro. Cuerpo con estrellas caladas. Base plástica con sticker personalizado.",dim:"52 cm",b:"Premio Especial",img:"fotos/art138.jpg"},
+  {id:"art139",cat:"copas",n:"Copa del Mundo",d:"Réplica estilo Copa del Mundo dorada. Base plástica con sticker personalizado.",dim:"33 cm",b:"Especial",img:"fotos/art139.jpg"},
+  {id:"art140",cat:"copas",n:"Copa Fénix",d:"Copa Fénix Oro/Negro o Plata/Negro. Figura grande varios deportes. Base plástica con sticker personalizado.",dim:"55/60 cm",b:"Novedad",img:"fotos/art140.jpg"},
+  {id:"art141",cat:"copas",n:"Copón 2 columnas",d:"Copón negro con alegoría estampada. Tapa y asas oro y cuerpo estampado. Columnas doradas con puesto en el centro. Base rectangular plástica. ",dim:"60 cm",img:"fotos/art141.jpg"},
+  {id:"art142",cat:"copas",n:"Copa 9 Oro",d:"Copa con alegoría estampada grande, varios deportes.Base plástica con sticker personalizado.",dim:"44/47 cm",img:"fotos/art142.jpg"},
+  {id:"art143",cat:"copas",n:"Copa 9 Oro/Negro",d:"Copa con figura deportiva estampada grande. Base plástica con sticker personalizado.",dim:"44/47 cm",img:"fotos/art143.jpg"},
+  {id:"art144",cat:"copas",n:"Copa 5",d:"Copa sobre columna greco con alegoría estampada. Base mármol.",dim:"37 cm",img:"fotos/art144.jpg"},
+  {id:"art145",cat:"copas",n:"Copa Romana",d:"Copa estilo romano en dos tamaños. Alegoría 3D a elección. Base plástica con sticker personalizado.",dim:"Chica 30 / Grande 40 cm",img:"fotos/art145.jpg"},
+  {id:"art146",cat:"copas",n:"Copa América Estampada",d:"Copa estampada estilo Copa América con columna y base de mármol.",dim:"25 cm",img:"fotos/art146.jpg"},
+  {id:"art147",cat:"copas",n:"Copa América Estampada",d:"Copa América estampada con base plástica negra.",dim:"18 cm",img:"fotos/art147.jpg"},
+  {id:"art148",cat:"copas",n:"Copa Cancún",d:"Copa oro/negro con figura alada estampada. Base plástica con sticker personalizado.",dim:"34 cm",b:"Novedad",img:"fotos/art148.jpg"},
+  {id:"art149",cat:"copas",n:"Copa 1 una columna",d:"Copa oro con alegoría estampada y columna griega. Base plástica con sticker personalizado.",dim:"33 cm",img:"fotos/art149.jpg"},
+  {id:"art150",cat:"copas",n:"Copa 1 dos columnas",d:"Copa con figura deportiva estampada. Doble columna griega. Base mármol.",dim:"33 cm",img:"fotos/art150.jpg"},
+  {id:"art151",cat:"copas",n:"Copa Clásica",d:"Copa con metalizado oro o plata de gran calidad, con alegorías chicas 3D. Base plástica con sticker personalizado.",dim:"22 / 26 / 30 cm",img:"fotos/art151.jpg"},
+  {id:"art152",cat:"copas",n:"Copa Orejona",d:"Copa con metalizado oro o plata de gran calidad, boca abierta. Tres tamaños. Base plástica con sticker personalizado.",dim:"18 / 22 / 27 cm",img:"fotos/art152.jpg"},
+  {id:"art153",cat:"copas",n:"Copa Clásica",d:"Copa con metalizado especial oro o plata, con alegorías 3D. Base mármol.",dim:"30 / 38 / 45 cm",img:"fotos/art153.jpg"},
+  {id:"art154",cat:"copas",n:"Copa Fargo",d:"Copa oro o plata de hermoso metalizado! Alegoría portacentro con logo o escudo personalizado. Columna labrada, color a elección. Base mármol.",dim:"30 / 35 / 40 cm",img:"fotos/art154.jpg"},
+  {id:"art155",cat:"copas",n:"Copa Orejona con Tapa",d:"Copa oro o plata. Alegoría 3D. Base plástica con sticker personalizado.",dim:"34 / 40 / 53 cm",img:"fotos/art155.jpg"},
+  {id:"art156",cat:"copas",n:"Copa Italia con Asa",d:"Copa labrada dorada. Base plástica con sticker personalizado.",dim:"Chica 21 / Grande 24 cm",img:"fotos/art156.jpg"},
+  {id:"art157",cat:"futbol",n:"Botín o Guante con Balón",d:"Trofeo ideal para premiar a cada participante del equipo. Guante o botín estampado con balón 3D oro. Base mármol o plástico con sticker según tamaño.",dim:"25 / 30 / 34 / 37 cm",img:"fotos/art157.jpg"},
+  {id:"art158",cat:"copas",n:"Copa Italia con Asa y Tapa",d:"Copa labrada color oro. Alegoría 3D varios deportes. Base plástica con sticker personalizado.",dim:"Chica 38 / Grande 43 cm",img:"fotos/art158.jpg"},
+  {id:"art159",cat:"futbol",n:"Fútbol con Pelota",d:"Futbolista con pelota integrada. Color de columna a elección. Base plástica con sticker personalizado.",dim:"30 cm",img:"fotos/art159.jpg"},
+  {id:"art160",cat:"futbol",n:"Fútbol con Pelota",d:"Futbolista con pelota integrada. Cuerpo copa clásica oro o plata. Base plástica con sticker personalizado.",dim:"30 cm",img:"fotos/art160.jpg"},
+  {id:"art161",cat:"futbol",n:"Fútbol con Pelota",d:"Futbolista con pelota integrada, cuerpo oro o plata. Base plástica con sticker personalizado.",dim:"30 cm",img:"fotos/art161.jpg"},
+  {id:"art162",cat:"trofeos",n:"Alegorías Estampadas con Pie",d:"Estampadas chicas y grandes con pie de color. Sticker personalizado.",dim:"Chicas 23/25 · Grandes 27/30 cm",img:"fotos/art162.jpg"},
+  {id:"art163",cat:"trofeos",n:"Alegorías grandes",d:"Deporte a elección con pedestal negro. Base plástica con sticker personalizado.",dim:"32 cm",img:"fotos/art163.jpg"},
+  {id:"art164",cat:"copas",n:"Copa Satinada",d:"Copa satinada oro con pedestal en varios colores. Base mármol.",dim:"40 cm",img:"fotos/art164.jpg"},
+  {id:"art165",cat:"futbol",n:"Pelota con Base",d:"Trofeo Pelota oro con cuerpo y alegoría 3D. Base plástica con sticker personalizado.",dim:"30 cm",img:"fotos/art165.jpg"},
+  {id:"art166",cat:"copas",n:"Copa Combinada Pie Labrado",d:"Copa combinada en varios colores a elección. Alegoría 3D. Base plástica con sticker personalizado.",dim:"35 / 40 / 50 cm",img:"fotos/art166.jpg"},
+  {id:"art167",cat:"copas",n:"Copa Combinada Pie Liso",d:"Copa combinada en varios colores y alegorías grandes. Base plástica con sticker personalizado.",dim:"37 / 43 cm",img:"fotos/art167.jpg"},
+  {id:"art168",cat:"copas",n:"Copa 10 Lisa con Pie Labrado",d:"Copa oro/plata con alegoría 3D. Base plástica con sticker personalizado.",dim:"32 cm",img:"fotos/art168.jpg"},
+  {id:"art169",cat:"copas",n:"Copa Combinada con Pie Negro",d:"Copa negro/oro con figura estampada chica. Base plástica con sticker personalizado.",dim:"38 cm",img:"fotos/art169.jpg"},
+  {id:"art170",cat:"copas",n:"Copa Combinada con Pie Negro",d:"Copa negro/oro con figura estampada grandes. Base plástica con sticker personalizado.",dim:"45 cm",img:"fotos/art170.jpg"},
+  {id:"art171",cat:"copas",n:"Copón Labrado",d:"Copa oro con tapa y asas, pie labrado oro. Figura alada grande. Base plástica con sticker personalizado.",dim:"55 cm",b:"Premium",img:"fotos/art171.jpg"},
+  {id:"art172",cat:"copas",n:"Copa con Triunfo",d:"Copa especial con base tipo triunfo. Alegoría 3D. Base plástica con sticker personalizado.",dim:"28 / 33 / 38 / 43 cm",img:"fotos/art172.jpg"},
+  {id:"art173",cat:"futbol",n:"Pelota Estampada",d:"Trofeo Pelota y alegoría estampada sobre columna estrellada. Base plástica con sticker personalizado.",dim:"50 / 57 cm",img:"fotos/art173.jpg"},
+  {id:"art174",cat:"futbol",n:"Pelota 2 Columnas",d:"Pelota oro con pie y alegoría 3D grande. 2 Columnas. Figura central de puestos (1°, 2°,3°, etc.) estampada. Base rectangular plástica.",dim:"55 cm",img:"fotos/art174.jpg"},
+  {id:"art175",cat:"copas",n:"Copa Combinada 2 Columnas",d:"Trofeo con copa combinada y alegoría 3D grande. Dos columnas y varias figuras. Varios Colores. Base mármol.",dim:"50 cm",img:"fotos/art175.jpg"},
+  {id:"art176",cat:"copas",n:"Copa Combinada Negra 3 Columnas",d:"Copa oro/negro, tres columnas, figuras estampadas. Base triangular plástica.",dim:"60 cm",img:"fotos/art176.jpg"},
+  {id:"art177",cat:"copas",n:"Copón Labrado 2 Columnas",d:"Copón labrado oro con alegoría 3D. Dos columnas color a elección. Base rectangular plástica.",dim:"70 cm",img:"fotos/art177.jpg"},
+];
+let filt="todos",busq="",cur=0,list=[];
+function waLink(p){return`https://wa.me/${WA}?text=${encodeURIComponent(`Hola PremiacionesBA! 👋 Consulto por *${p.n}* (${p.id.toUpperCase()}) — ${p.dim||''}. Gracias!`)}`;}
+function render(){
+  const t=busq.toLowerCase();
+  list=P.filter(p=>(filt==="todos"||p.cat===filt)&&(!t||p.n.toLowerCase().includes(t)||p.id.includes(t)));
+  cur=0;buildSlides();}
+function buildSlides(){
+  const g=document.getElementById("pgrid");
+  const dotsEl=document.getElementById("dots");
+  const cb=document.getElementById("counterBar");
+  if(!list.length){g.innerHTML='<div class="no-res">No se encontraron productos.</div>';dotsEl.innerHTML="";cb.innerHTML="";document.getElementById("prevBtn").style.display="none";document.getElementById("nextBtn").style.display="none";return;}
+  document.getElementById("prevBtn").style.display="";document.getElementById("nextBtn").style.display="";
+  g.innerHTML=list.map((p,i)=>`
+    <div class="slide ${i===0?'active':''}" id="slide-${i}">
+      <div class="slide-img">
+        ${p.img?`<img src="${p.img}" alt="${p.n}" loading="lazy">`:`<div class="slide-img-ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Próximamente</span></div>`}
+        ${p.b?`<div class="slide-badge">${p.b}</div>`:""}
+        <button class="img-nav img-nav-prev" onclick="navigate(-1)" ${i===0?'disabled':''}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button class="img-nav img-nav-next" onclick="navigate(1)" ${i===list.length-1?'disabled':''}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div class="slide-info">
+        <div class="slide-counter">${i+1} / ${list.length}</div>
+        <div class="slide-id">${p.id.toUpperCase()}</div>
+        <div class="slide-cat">${CATS[p.cat]||p.cat}</div>
+        <div class="slide-name">${p.n}</div>
+        ${p.dim?`<span class="slide-dim">📐 ${p.dim}</span>`:""}
+        <p class="slide-desc">${p.d}</p>
+        <a href="${waLink(p)}" target="_blank" class="slide-wa">${WA_SVG} Consultar precio por WhatsApp</a>
+        <p class="slide-note">Te respondemos con precio y opciones de personalización.</p>
+      </div>
+    </div>
+  `).join("");
+  dotsEl.innerHTML=list.map((_,i)=>`<button class="dot ${i===0?'active':''}" onclick="goTo(${i})"></button>`).join("");
+  updateCounter();}
+function goTo(i){
+  document.querySelectorAll(".slide").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".dot").forEach(d=>d.classList.remove("active"));
+  const s=document.getElementById(`slide-${i}`);
+  if(s){s.classList.add("active");document.querySelectorAll(".dot")[i].classList.add("active");}
+  cur=i;updateCounter();}
+function navigate(dir){
+  const next=Math.min(Math.max(cur+dir,0),list.length-1);
+  if(next!==cur)goTo(next);}
+function updateCounter(){
+  document.getElementById("counterBar").innerHTML=`Artículo <strong>${cur+1}</strong> de <strong>${list.length}</strong>`;
+  document.getElementById("prevBtn").disabled=cur===0;
+  document.getElementById("nextBtn").disabled=cur===list.length-1;}
+function setF(c,btn){filt=c;document.querySelectorAll(".fbtn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");render();}
+function onSearch(){busq=document.getElementById("searchInput").value;render();}
+document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")navigate(-1);else if(e.key==="ArrowRight")navigate(1);});
+render();
+function toggleMenu(){document.getElementById("mobileMenu").classList.toggle("open");}
+</script>
+</body>
+</html>

@@ -395,6 +395,21 @@
       transition: background 0.2s; z-index: 10;
     }
     .modal-close:hover { background: var(--bg3); }
+
+    /* Flechas navegación dentro de imagen del modal */
+    .modal-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.85); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink2); z-index: 10;
+      box-shadow: 0 2px 10px rgba(26,23,20,0.15);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .modal-nav:hover { background: #fff; transform: translateY(-50%) scale(1.08); }
+    .modal-nav:disabled { opacity: 0.25; cursor: not-allowed; }
+    .modal-nav-prev { left: 0.6rem; }
+    .modal-nav-next { right: 0.6rem; }
     .modal-art { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink4); margin-bottom: 0.2rem; }
     .modal-cat { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.55rem; }
     .modal-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.9rem; font-weight: 600; color: var(--ink); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 0.7rem; }
@@ -500,7 +515,7 @@
   </a>
   <nav>
     <a href="#catalogo">Catálogo</a>
-    <a href="catalogo-d-slideshow.html">Slideshow</a>
+    <a href="index2.html">Slideshow</a>
     <a href="#nosotros">Nosotros</a>
     <a href="#contacto">Contacto</a>
     <a href="https://wa.me/5491131502179?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="nav-wa">
@@ -515,7 +530,7 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#catalogo" onclick="toggleMenu()">Catálogo</a>
-  <a href="catalogo-d-slideshow.html">Slideshow</a>
+  <a href="index2.html">Slideshow</a>
   <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
   <a href="#contacto" onclick="toggleMenu()">Contacto</a>
   <a href="https://wa.me/5491131502179?text=Hola!%20Quisiera%20consultar%20por%20sus%20productos." target="_blank" class="mob-wa">
@@ -948,47 +963,63 @@ function setView(mode) {
 }
 
 // MODAL
+let modalList = [], modalIdx = 0;
+
 function openModal(id) {
+  // Build nav list from current filtered list
+  const g = document.getElementById("pgrid");
+  const cards = g.querySelectorAll(".pcard[onclick]");
+  modalList = Array.from(cards).map(c => c.getAttribute("onclick").match(/'([^']+)'/)[1]);
+  modalIdx = modalList.indexOf(id);
+  renderModal(id);
+  document.getElementById("modal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function renderModal(id) {
   const p = P.find(x=>x.id===id);
   if (!p) return;
   const side = document.getElementById("modalImgSide");
   const body = document.getElementById("modalBody");
   const box  = document.getElementById("modalBox");
 
+  const hasPrev = modalIdx > 0;
+  const hasNext = modalIdx < modalList.length - 1;
+
   const closeBtn = `<button class="modal-close" onclick="closeModalBtn()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
+  const prevBtn = `<button class="modal-nav modal-nav-prev" onclick="modalNavigate(-1)" ${hasPrev?'':'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></button>`;
+  const nextBtn = `<button class="modal-nav modal-nav-next" onclick="modalNavigate(1)" ${hasNext?'':'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button>`;
 
   body.innerHTML = `
     <div class="modal-art">${p.id.toUpperCase()}</div>
     <div class="modal-cat">${CATS[p.cat]||p.cat}</div>
     <div class="modal-name">${p.n}</div>
-    ${p.dim?`<span class="modal-dim">📐 ${p.dim}</span>`:""}
+    ${p.dim?`<span class="modal-dim">📐 ${p.dim}`:""}
     <p class="modal-desc">${p.d}</p>
     <a href="${waLink(p)}" target="_blank" class="modal-wa">${WA_SVG} Consultar precio por WhatsApp</a>
     <p class="modal-note">Te vamos a responder con el precio y opciones de personalización.</p>
   `;
 
+  const setImg = (layout) => {
+    box.classList.remove("layout-v","layout-h");
+    box.classList.add(layout);
+    side.innerHTML = closeBtn + prevBtn + nextBtn +
+      (p.img ? `<img src="${p.img}" alt="${p.n}">` : `<div class="modal-ph"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Próximamente</span></div>`);
+  };
+
   if (p.img) {
     const tmpImg = new Image();
-    tmpImg.onload = () => {
-      const horiz = tmpImg.naturalWidth > tmpImg.naturalHeight * 1.4;
-      box.classList.remove("layout-v","layout-h");
-      box.classList.add(horiz ? "layout-h" : "layout-v");
-      side.innerHTML = closeBtn + `<img src="${p.img}" alt="${p.n}">`;
-    };
-    tmpImg.onerror = () => {
-      box.classList.remove("layout-v","layout-h");
-      box.classList.add("layout-v");
-      side.innerHTML = closeBtn + `<img src="${p.img}" alt="${p.n}">`;
-    };
+    tmpImg.onload = () => setImg(tmpImg.naturalWidth > tmpImg.naturalHeight * 1.4 ? "layout-h" : "layout-v");
+    tmpImg.onerror = () => setImg("layout-v");
     tmpImg.src = p.img;
   } else {
-    box.classList.remove("layout-v","layout-h");
-    box.classList.add("layout-v");
-    side.innerHTML = closeBtn + `<div class="modal-ph"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Imagen del producto</span></div>`;
+    setImg("layout-v");
   }
+}
 
-  document.getElementById("modal").classList.add("open");
-  document.body.style.overflow = "hidden";
+function modalNavigate(dir) {
+  modalIdx = Math.min(Math.max(modalIdx + dir, 0), modalList.length - 1);
+  renderModal(modalList[modalIdx]);
 }
 
 function closeModal(e) { if (e.target===document.getElementById("modal")) closeModalBtn(); }
@@ -996,7 +1027,13 @@ function closeModalBtn() {
   document.getElementById("modal").classList.remove("open");
   document.body.style.overflow = "";
 }
-document.addEventListener("keydown", e => { if (e.key==="Escape") closeModalBtn(); });
+document.addEventListener("keydown", e => {
+  if (e.key==="Escape") closeModalBtn();
+  if (document.getElementById("modal").classList.contains("open")) {
+    if (e.key==="ArrowLeft") modalNavigate(-1);
+    if (e.key==="ArrowRight") modalNavigate(1);
+  }
+});
 
 // REVEAL
 function obs() {
