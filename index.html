@@ -457,8 +457,9 @@
       nav a:not(.nav-wa) { display: none; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       footer { flex-direction: column; text-align: center; }
-      .modal { flex-direction: column; }
-      .modal-img-side { width: 100%; height: 220px; }
+      .modal, .modal.layout-v, .modal.layout-h { flex-direction: column; max-width: 100%; }
+      .modal-img-side, .modal.layout-v .modal-img-side { width: 100%; min-height: unset; height: 260px; flex-shrink: 0; }
+      .modal-body { overflow-y: auto; }
       .controls-row1 { flex-wrap: wrap; }
       .sort-select { flex: 1; min-width: 140px; }
     }
